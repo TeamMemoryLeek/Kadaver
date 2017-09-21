@@ -1,0 +1,11 @@
+# Global
+bin/
+build/
+tmp/
+
+# Visual Studio
+src/.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
