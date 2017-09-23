@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Types.h"
+
 // Platform macros
 #if defined(_WIN32)
 #define KD_DLL_EXPORT __declspec(dllexport)
