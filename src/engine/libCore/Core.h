@@ -8,3 +8,6 @@
 #else
 #define KD_CORE_DLL KD_DLL_IMPORT
 #endif
+
+// Temporary definition for knew keyword
+#define knew new
