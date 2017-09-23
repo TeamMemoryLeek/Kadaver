@@ -26,5 +26,5 @@ FooBar fooBar;
 // Pointers
 FooBar* fooBar;
 // Member variables
-object.fooBar;
+object.fooBar_;
 ```
