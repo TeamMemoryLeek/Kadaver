@@ -41,6 +41,7 @@ project "libCore"
 -- Demo application
 
 project "Demo"
+	dependson "libCore"
 	kind "ConsoleApp"
 	targetdir "../bin"
 	objdir "../build"
