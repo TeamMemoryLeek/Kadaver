@@ -28,3 +28,6 @@ FooBar* fooBar;
 // Member variables
 object.fooBar_;
 ```
+
+### Tabs or spaces
+Tabs, and no horizontal alignment.
