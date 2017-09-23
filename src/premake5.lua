@@ -51,7 +51,7 @@ project "Demo"
 	}
 	includedirs {
 		"demo",
-		"engine/libCore",
+		"engine",
 	}
 	libdirs {
 		"../bin",
