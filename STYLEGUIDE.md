@@ -1,3 +1,6 @@
+### Indentation
+Tabs for indentation, and no vertical alignment.
+
 ### Classes
 ```cpp
 class FooBar
@@ -5,7 +8,6 @@ class FooBar
 	...
 };
 ```
-
 ### Functions and Methods
 ```cpp
 // Functions
@@ -28,6 +30,8 @@ FooBar* fooBar;
 // Member variables
 object.fooBar_;
 ```
-
-### Tabs or spaces
-Tabs, and no horizontal alignment.
+### Macros
+```cpp
+#define FOO_BAR ...
+#define FOO(BAR) ...
+```
