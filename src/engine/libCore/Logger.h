@@ -18,7 +18,9 @@ class KD_CORE_DLL Logger
 {
 public:
 	Logger();
-
+private:
+	void print(std::string message, uint level) const;
+public:
 	void log(const std::string& message, uint flag = LOG_DEFAULT) const;
 	void logWarning(const std::string& message, uint flag = LOG_DEFAULT) const;
 	void logError(const std::string& message, uint flag = LOG_DEFAULT) const;

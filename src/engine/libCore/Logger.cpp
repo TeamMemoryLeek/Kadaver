@@ -1,6 +1,9 @@
 #include "Logger.h"
 #include <cstdio>
 #include <iostream>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 KD_NAMESPACE_BEGIN
 
@@ -11,36 +14,78 @@ Logger::Logger()
 {
 }
 
+void Logger::print(std::string message, uint level) const
+{
+	// Set message prefix based on level
+	static const char* prefixes[3] = {
+		"", "WARNING: ", "ERROR: "
+	};
+
+	message = prefixes[level] + message;
+	
+	// Set console color
+#ifdef _WIN32
+	// TODO: Make this thread safe
+	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+	WORD consolePrevAttribs;
+	HANDLE consoleHandle;
+
+	consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	GetConsoleScreenBufferInfo(consoleHandle, &consoleInfo);
+	consolePrevAttribs = consoleInfo.wAttributes;
+
+	static const uint attributes[3] =
+	{
+		7u, 14u, 12u
+	};
+
+	SetConsoleTextAttribute(consoleHandle, attributes[level]);
+#else
+	static const char* colorPrefixes[3] = 
+	{
+		"", "\e[1;33m", "\e[1;31m"
+	};
+
+	message = colorPrefixes[level] + message;
+#endif
+
+	printf((message + "\n").c_str());
+
+#ifdef _WIN32
+	SetConsoleTextAttribute(consoleHandle, consolePrevAttribs);
+#endif
+}
+
 void Logger::log(
-	const std::string& message, 
+	const std::string& message,
 	uint flag /*= LOG_DEFAULT*/
 ) const
 {
 	if (traceFlags_ & flag)
 	{
-		printf((message + "\n").c_str());
+		print(message, 0);
 	}
 }
 
 void Logger::logWarning(
-	const std::string& message, 
+	const std::string& message,
 	uint flag /*= LOG_DEFAULT*/
 ) const
 {
 	if (warningFlags_ & flag)
 	{
-		fprintf(stderr, ("WARNING: " + message + "\n").c_str());
+		print(message, 1);
 	}
 }
 
 void Logger::logError(
-	const std::string& message, 
+	const std::string& message,
 	uint flag /*= LOG_DEFAULT*/
 ) const
 {
 	if (errorFlags_ & flag)
 	{
-		fprintf(stderr, ("ERROR: " + message + "\n").c_str());
+		print(message, 2);
 	}
 }
 
