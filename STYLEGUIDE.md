@@ -1,6 +1,6 @@
 ### Classes
 ```cpp
-class Foo
+class FooBar
 {
 	...
 };
@@ -14,7 +14,7 @@ void fooBar()
 	...
 }
 // Methods
-void Foo::fooBar()
+void FooBar::fooBar()
 {
 	...
 }
@@ -22,9 +22,9 @@ void Foo::fooBar()
 ### Variables
 ```cpp
 // Stack variables
-Foo fooBar;
+FooBar fooBar;
 // Pointers
-Foo* fooBar;
+FooBar* fooBar;
 // Member variables
 object.fooBar;
 ```
