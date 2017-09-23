@@ -22,9 +22,9 @@ void Foo::fooBar()
 ### Variables
 ```cpp
 // Stack variables
-Foo bar;
+Foo fooBar;
 // Pointers
-Foo* bar;
+Foo* fooBar;
 // Member variables
-bar.fooBar;
+object.fooBar;
 ```
