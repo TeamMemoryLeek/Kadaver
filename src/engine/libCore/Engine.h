@@ -11,6 +11,10 @@ public:
 	~Engine();
 
 	Logger logger;
+
+	static Engine& get();
+private:
+	static Engine* engine_;
 };
 
 KD_NAMESPACE_END
