@@ -6,10 +6,15 @@ workspace "Kadaver"
 		"Debug",
 		"Release",
 	}
-	platforms {
-		"Win32",
-		"x64",
-	}
+
+	-- Visual Studio
+
+	if _ACTION:match("vs*") then
+		platforms {
+			"Win32",
+			"x64",
+		}
+	end
 
 -- Core library
 
