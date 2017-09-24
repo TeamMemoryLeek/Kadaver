@@ -33,7 +33,7 @@ project "libCore"
 		"engine/libCore",
 	}
 
-	rtti "Off"
+	-- Per-configuration settings
 
 	filter {"configurations:Debug"}
 		optimize "Off"
@@ -42,6 +42,8 @@ project "libCore"
 		optimize "Full"
 
 	filter {}
+		cppdialect "C++14"
+		rtti "Off"
 
 -- Demo application
 
@@ -65,10 +67,14 @@ project "Demo"
 		"libCore",
 	}
 
-	rtti "Off"
+	-- Per-configuration settings
 
 	filter {"configurations:Debug"}
 		optimize "Off"
 
 	filter {"configurations:Debug"}
 		optimize "Full"
+
+	filter {}
+		cppdialect "C++14"
+		rtti "Off"
