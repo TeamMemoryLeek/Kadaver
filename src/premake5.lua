@@ -38,7 +38,7 @@ project "libCore"
 	filter {"configurations:Debug"}
 		optimize "Off"
 
-	filter {"configurations:Debug"}
+	filter {"configurations:Release"}
 		optimize "Full"
 
 	filter {}
@@ -72,7 +72,7 @@ project "Demo"
 	filter {"configurations:Debug"}
 		optimize "Off"
 
-	filter {"configurations:Debug"}
+	filter {"configurations:Release"}
 		optimize "Full"
 
 	filter {}
