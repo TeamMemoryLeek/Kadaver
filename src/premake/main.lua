@@ -19,7 +19,7 @@ workspace "Kadaver"
 
 -- Core library
 
-project "libCore"
+project "KadaverCore"
 	kind "SharedLib"
 	location ".."
 	targetdir "../bin"
@@ -50,7 +50,7 @@ project "libCore"
 -- Demo application
 
 project "Demo"
-	dependson "libCore"
+	dependson "KadaverCore"
 	kind "ConsoleApp"
 	location ".."
 	targetdir "../bin"
@@ -67,7 +67,7 @@ project "Demo"
 		"../bin",
 	}
 	links {
-		"libCore",
+		"KadaverCore",
 	}
 
 	-- Per-configuration settings
