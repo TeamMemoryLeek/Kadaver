@@ -43,7 +43,7 @@ void Logger::print(std::string message, uint level) const
 #else
 	static const char* colorPrefixes[3] = 
 	{
-		"\033[1;37m", "\033[1;33m", "\033[1;31m"
+		"", "\033[1;33m", "\033[1;31m"
 	};
 	
 	
@@ -53,8 +53,11 @@ void Logger::print(std::string message, uint level) const
 
 	printf((message + "\n").c_str());
 
+	// Reset console attributes
 #ifdef _WIN32
 	SetConsoleTextAttribute(consoleHandle, consolePrevAttribs);
+#else
+	printf("\033[1;37m");
 #endif
 }
 
