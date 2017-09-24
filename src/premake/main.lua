@@ -88,6 +88,9 @@ project "Demo"
 		buildoptions {
 			"-g",
 		}
+		links {
+			"pthread",
+		}
 
 	-- Per-configuration settings
 
