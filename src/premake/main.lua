@@ -37,6 +37,13 @@ project "KadaverCore"
 		"../engine/libCore",
 	}
 
+	-- Per-toolset settings
+
+	filter {"toolset:clang or gcc"}
+		buildoptions {
+			"-g",
+		}
+
 	-- Per-configuration settings
 
 	filter {"configurations:Debug"}
@@ -71,6 +78,13 @@ project "Demo"
 	links {
 		"KadaverCore",
 	}
+
+	-- Per-toolset settings
+
+	filter {"toolset:clang or gcc"}
+		buildoptions {
+			"-g",
+		}
 
 	-- Per-configuration settings
 
