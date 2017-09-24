@@ -50,8 +50,8 @@ void Logger::print(std::string message, uint level) const
 
 	message = colorPrefixes[level] + message;
 #endif
-
-	printf((message + "\n").c_str());
+	
+	printf("%s\n", message.c_str());
 
 	// Reset console attributes
 #ifdef _WIN32
