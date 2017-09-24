@@ -22,8 +22,8 @@ workspace "Kadaver"
 project "KadaverCore"
 	kind "SharedLib"
 	location ".."
-	targetdir "../bin"
-	objdir "../build"
+	targetdir "../../bin"
+	objdir "../../build"
 	defines {
 		"LIB_CORE",
 	}
@@ -53,8 +53,8 @@ project "Demo"
 	dependson "KadaverCore"
 	kind "ConsoleApp"
 	location ".."
-	targetdir "../bin"
-	objdir "../build"
+	targetdir "../../bin"
+	objdir "../../build"
 	files {
 		"../demo/**.h",
 		"../demo/**.cpp",
@@ -64,7 +64,7 @@ project "Demo"
 		"../engine",
 	}
 	libdirs {
-		"../bin",
+		"../../bin",
 	}
 	links {
 		"KadaverCore",
