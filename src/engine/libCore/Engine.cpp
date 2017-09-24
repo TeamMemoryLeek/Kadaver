@@ -10,12 +10,12 @@ Engine* Engine::engine_ = nullptr;
 Engine::Engine()
 {
 	engine_ = this;
-	KD_LOG("Initializing Kadaver Engine", LOG_SYSTEM);
+	logger.log("Initializing Kadaver Engine");
 }
 
 Engine::~Engine()
 {
-	KD_LOG("Shutting down Kadaver Engine", LOG_SYSTEM);
+	logger.log("Shutting down Kadaver Engine");
 	engine_ = nullptr;
 }
 
