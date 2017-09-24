@@ -37,7 +37,7 @@ void Logger::print(std::string message, uint level) const
 	static const uint attributes[3] =
 	{
 		7u, 14u, 12u
-	}
+	};
 
 	SetConsoleTextAttribute(consoleHandle, attributes[level]);
 #else
