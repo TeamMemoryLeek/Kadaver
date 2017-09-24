@@ -37,14 +37,16 @@ void Logger::print(std::string message, uint level) const
 	static const uint attributes[3] =
 	{
 		7u, 14u, 12u
-	};
+	}
 
 	SetConsoleTextAttribute(consoleHandle, attributes[level]);
 #else
 	static const char* colorPrefixes[3] = 
 	{
-		"", "\e[1;33m", "\e[1;31m"
+		"\033[1;37m", "\033[1;33m", "\033[1;31m"
 	};
+	
+	
 
 	message = colorPrefixes[level] + message;
 #endif
