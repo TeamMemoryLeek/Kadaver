@@ -27,13 +27,13 @@ fi
 
 # Windows
 if [ "$os" == "windows" ]; then
-	bin/premake5 "--file=src/premake5.lua" "vs2017"
+	bin/premake5 "--file=src/premake/main.lua" "vs2017"
 
 # Linux
 elif [ "$os" == "linux" ]; then
-	bin/premake5 "--file=src/premake5.lua" "codelite"
+	bin/premake5 "--file=src/premake/main.lua" "codelite"
 
 # Mac OS X
 elif [ "$os" == "osx" ]; then
-	bin/premake5 "--file=src/premake5.lua" "xcode4"
+	bin/premake5 "--file=src/premake/main.lua" "xcode4"
 fi

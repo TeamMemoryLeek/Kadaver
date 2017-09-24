@@ -2,6 +2,7 @@
 
 workspace "Kadaver"
 	language "C++"
+	location ".."
 	configurations {
 		"Debug",
 		"Release",
@@ -20,17 +21,18 @@ workspace "Kadaver"
 
 project "libCore"
 	kind "SharedLib"
+	location ".."
 	targetdir "../bin"
 	objdir "../build"
 	defines {
 		"LIB_CORE",
 	}
 	files {
-		"engine/libCore/**.h",
-		"engine/libCore/**.cpp",
+		"../engine/libCore/**.h",
+		"../engine/libCore/**.cpp",
 	}
 	includedirs {
-		"engine/libCore",
+		"../engine/libCore",
 	}
 
 	-- Per-configuration settings
@@ -50,15 +52,16 @@ project "libCore"
 project "Demo"
 	dependson "libCore"
 	kind "ConsoleApp"
+	location ".."
 	targetdir "../bin"
 	objdir "../build"
 	files {
-		"demo/**.h",
-		"demo/**.cpp",
+		"../demo/**.h",
+		"../demo/**.cpp",
 	}
 	includedirs {
-		"demo",
-		"engine",
+		"../demo",
+		"../engine",
 	}
 	libdirs {
 		"../bin",
