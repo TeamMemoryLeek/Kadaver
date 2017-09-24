@@ -18,3 +18,7 @@ src/*.txt
 *.project
 *.workspace
 Makefile
+
+# Xcode
+src/*.xcodeproj/
+src/*.xcworkspace/
