@@ -1,3 +1,5 @@
+require "customizations"
+
 -- Workspace
 
 workspace "Kadaver"
