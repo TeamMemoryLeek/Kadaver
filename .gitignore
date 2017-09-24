@@ -9,3 +9,12 @@ src/.vs/
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
+
+# CodeLite
+src/.build-*/
+src/.codelite/
+src/*.txt
+*.mk
+*.project
+*.workspace
+Makefile
