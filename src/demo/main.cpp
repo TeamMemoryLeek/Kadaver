@@ -5,7 +5,8 @@
 
 int main(int argc, char** argv)
 {
-	KD_UNUSED(argc, argv);
+	KD_UNUSED(argc);
+	KD_UNUSED(argv);
 
 	kd::Engine engine;
 	

@@ -18,4 +18,4 @@
 #define KD_NAMESPACE_END }
 
 // Misc macros
-#define KD_UNUSED(...) (void)(__VA_ARGS__)
+#define KD_UNUSED(X) (void)(X)
