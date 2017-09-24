@@ -9,13 +9,13 @@ Engine* Engine::engine_ = nullptr;
 
 Engine::Engine()
 {
-	std::cout << "Initializing Kadaver Engine" << std::endl;
 	engine_ = this;
+	KD_LOG("Initializing Kadaver Engine", LOG_SYSTEM);
 }
 
 Engine::~Engine()
 {
-	std::cout << "Shutting down Kadaver Engine" << std::endl;
+	KD_LOG("Shutting down Kadaver Engine", LOG_SYSTEM);
 	engine_ = nullptr;
 }
 
