@@ -37,6 +37,17 @@ project "KadaverCore"
 		"../engine/libCore",
 	}
 
+	-- Per-action settings
+
+	filter {"action:xcode4"}
+		xcodebuildsettings
+		{
+			["CLANG_CXX_LANGUAGE_STANDARD"] = "c++14";
+		}
+
+	filter {"action:not xcode4"}
+		cppdialect "C++14"
+
 	-- Per-toolset settings
 
 	filter {"toolset:clang or gcc"}
@@ -56,7 +67,6 @@ project "KadaverCore"
 		optimize "Full"
 
 	filter {}
-		cppdialect "C++14"
 		rtti "Off"
 		warnings "Extra"
 
@@ -83,6 +93,20 @@ project "Demo"
 		"KadaverCore",
 	}
 
+	-- Per-action settings
+
+	filter {"action:xcode4"}
+		sysincludedirs {
+			"../engine",
+		}
+		xcodebuildsettings
+		{
+			["CLANG_CXX_LANGUAGE_STANDARD"] = "c++14";
+		}
+
+	filter {"action:not xcode4"}
+		cppdialect "C++14"
+
 	-- Per-toolset settings
 
 	filter {"toolset:clang or gcc"}
@@ -102,6 +126,5 @@ project "Demo"
 		optimize "Full"
 
 	filter {}
-		cppdialect "C++14"
 		rtti "Off"
 		warnings "Extra"
