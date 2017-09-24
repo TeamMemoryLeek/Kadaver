@@ -8,9 +8,9 @@
 KD_NAMESPACE_BEGIN
 
 Logger::Logger()
-	: traceFlags_(-1)
-	, warningFlags_(-1)
-	, errorFlags_(-1)
+	: traceFlags_(UINT_S(-1))
+	, warningFlags_(UINT_S(-1))
+	, errorFlags_(UINT_S(-1))
 {
 }
 
@@ -34,7 +34,7 @@ void Logger::print(std::string message, uint level) const
 	GetConsoleScreenBufferInfo(consoleHandle, &consoleInfo);
 	consolePrevAttribs = consoleInfo.wAttributes;
 
-	static const uint attributes[3] =
+	static const WORD attributes[3] =
 	{
 		7u, 14u, 12u
 	};
