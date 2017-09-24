@@ -58,6 +58,7 @@ project "KadaverCore"
 	filter {}
 		cppdialect "C++14"
 		rtti "Off"
+		warnings "Extra"
 
 -- Demo application
 
@@ -103,3 +104,4 @@ project "Demo"
 	filter {}
 		cppdialect "C++14"
 		rtti "Off"
+		warnings "Extra"
