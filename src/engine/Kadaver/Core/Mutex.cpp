@@ -1,6 +1,12 @@
 #include "Mutex.h"
 #include "Engine.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <unistd.h>
+#endif
+
 KD_NAMESPACE_BEGIN
 
 Mutex::Mutex()
