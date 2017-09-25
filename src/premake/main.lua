@@ -30,11 +30,11 @@ project "KadaverCore"
 		"LIB_CORE",
 	}
 	files {
-		"../engine/libCore/**.h",
-		"../engine/libCore/**.cpp",
+		"../engine/Kadaver/Core/**.h",
+		"../engine/Kadaver/Core/**.cpp",
 	}
 	includedirs {
-		"../engine/libCore",
+		"../engine/Kadaver/Core",
 	}
 
 	-- Per-action settings
