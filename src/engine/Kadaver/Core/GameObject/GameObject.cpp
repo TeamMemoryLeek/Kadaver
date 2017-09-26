@@ -8,7 +8,7 @@ GameObject::componentRegistry_ = knew GameObject::ComponentRegistry;
 
 bool kd::GameObject::regComponent(std::string name, deserializeFunc func)
 {
-	componentRegistry_->try_emplace(name, func);
+	(*componentRegistry_)[name] = func;
 	return true;
 }
 
