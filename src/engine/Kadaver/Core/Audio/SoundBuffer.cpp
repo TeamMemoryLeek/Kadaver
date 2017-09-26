@@ -156,6 +156,8 @@ void SoundBuffer::loadFromWave(const char* path)
 	// Lock buffer
 	result = buffer_->Lock(0, waveFileHeader.dataSize, (void**)&buffer, 
 		(DWORD*)&bufferSize, 0, 0, 0);
+	if (FAILED(result))
+		throw std::exception();
 
 	// Copy data into buffer
 	memcpy(buffer, waveData, waveFileHeader.dataSize);
