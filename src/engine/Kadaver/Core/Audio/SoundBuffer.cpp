@@ -74,7 +74,7 @@ void SoundBuffer::loadFromWave(const char* path)
 	if (waveFileHeader.subChunkID[0] != 'f' || 
 		waveFileHeader.subChunkID[1] != 'm' ||
 		waveFileHeader.subChunkID[2] != 't' || 
-		waveFileHeader.subChunkID[3] != 0)
+		waveFileHeader.subChunkID[3] != 32)
 	{
 		throw std::exception();
 	}
