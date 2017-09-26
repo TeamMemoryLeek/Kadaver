@@ -89,6 +89,8 @@ project "Demo"
 	location ".."
 	targetdir "../../bin"
 	objdir "../../build"
+	debugdir "$(OutDir)"
+	
 	files {
 		"../demo/**.h",
 		"../demo/**.cpp",
