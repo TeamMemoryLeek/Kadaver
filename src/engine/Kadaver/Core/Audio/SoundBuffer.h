@@ -10,6 +10,8 @@
 
 KD_NAMESPACE_BEGIN
 
+class AudioSystem;
+
 class SoundBuffer
 {
 public:
@@ -30,12 +32,15 @@ public:
 		unsigned long dataSize;
 	};
 
-	SoundBuffer();
-	SoundBuffer(const char* path);
+	SoundBuffer(AudioSystem* as);
+	SoundBuffer(AudioSystem* as, const char* path);
+	~SoundBuffer();
 
 	void loadFromWave(const char* path);
 
 private:
+	AudioSystem* audioSystem_;
+
 #ifdef _WIN32
 	IDirectSoundBuffer8* buffer_;
 #endif

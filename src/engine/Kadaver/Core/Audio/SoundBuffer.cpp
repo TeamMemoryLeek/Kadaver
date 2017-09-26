@@ -1,18 +1,28 @@
 #include "SoundBuffer.h"
+#include "AudioSystem.h"
 #include <stdio.h>
 
 KD_NAMESPACE_BEGIN
 
-SoundBuffer::SoundBuffer()
+SoundBuffer::SoundBuffer(AudioSystem* as)
+	: audioSystem_(as)
 #ifdef _WIN32
-	: buffer_(nullptr)
+	, buffer_(nullptr)
 #endif
 {
 }
 
-SoundBuffer::SoundBuffer(const char* path)
+SoundBuffer::SoundBuffer(AudioSystem* as, const char* path)
+	: audioSystem_(as)
 {
 	loadFromWave(path);
+}
+
+SoundBuffer::~SoundBuffer()
+{
+	// Release buffer
+	if (buffer_)
+		buffer_->Release();
 }
 
 void SoundBuffer::loadFromWave(const char* path)
@@ -111,6 +121,49 @@ void SoundBuffer::loadFromWave(const char* path)
 	bufferDesc.guid3DAlgorithm = GUID_NULL;
 
 	// Create temp buffer
+	result = audioSystem_->directSound_->CreateSoundBuffer(
+		&bufferDesc, &tempBuffer, 0);
+
+	result = tempBuffer->QueryInterface(IID_IDirectSoundBuffer8, (void**)&*buffer_);
+	if (FAILED(result))
+		throw std::exception();
+
+	// Release temp buffer
+	tempBuffer->Release();
+	tempBuffer = 0;
+
+	// Move to beginning of wave data
+	fseek(file, sizeof(WaveHeaderType), SEEK_SET);
+
+	// Create temp buffer for wav data
+	waveData = new byte[waveFileHeader.dataSize];
+	if (!waveData)
+		throw std::exception();
+
+	// Read the wave file into new buffer
+	count = fread(waveData, 1, waveFileHeader.dataSize, file);
+	if (count != waveFileHeader.dataSize)
+		throw std::exception();
+
+	// Close file
+	error = fclose(file);
+	if(error)
+		throw std::exception();
+
+	// Lock buffer
+	result = buffer_->Lock(0, waveFileHeader.dataSize, (void**)&buffer, 
+		(DWORD*)&bufferSize, 0, 0, 0);
+
+	// Copy data into buffer
+	memcpy(buffer, waveData, waveFileHeader.dataSize);
+
+	// Unlock buffer
+	result = buffer_->Unlock((void*)buffer, bufferSize, 0, 0);
+	if (FAILED(result))
+		throw std::exception();
+
+	// Release wave data
+	delete[] waveData;
 #endif
 }
 
