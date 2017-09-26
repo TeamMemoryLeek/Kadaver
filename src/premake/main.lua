@@ -34,7 +34,7 @@ project "KadaverCore"
 		"../engine/Kadaver/Core/**.cpp",
 	}
 	includedirs {
-		"../engine/Kadaver/Core",
+		"../engine",
 	}
 
 	-- Per-action settings

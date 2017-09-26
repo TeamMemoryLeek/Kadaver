@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core.h"
+#include "Kadaver/Core/Core.h"
 
 // Wrapper class for std::mutex
 
