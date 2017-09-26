@@ -17,9 +17,10 @@ Mutex::Mutex()
 void Mutex::lock()
 {
 #ifdef _WIN32
-	while (interlock_ == 1 || InterlockedCompareExchange(&interlock_, 1, 0) == 1){}
+	while (interlock_ == 1 || 
+		InterlockedCompareExchange(&interlock_, 1, 0) == 1);
 #else
-	while (interlock_ == 1 || __sync_lock_test_and_set(&interlock_, 1) == 1) {}
+	while (interlock_ == 1 || __sync_lock_test_and_set(&interlock_, 1) == 1);
 #endif
 }
 
