@@ -169,6 +169,27 @@ void SoundBuffer::loadFromWave(const char* path)
 
 	// Release wave data
 	delete[] waveData;
+
+
+#endif
+}
+
+void SoundBuffer::play()
+{
+#ifdef _WIN32
+	HRESULT result;
+	result = buffer_->SetCurrentPosition(0);
+	if (FAILED(result))
+		throw std::exception();
+
+	result = buffer_->SetVolume(DSBVOLUME_MAX);
+	if(FAILED(result))
+		throw std::exception();
+
+	result = buffer_->Play(0, 0, 0);
+	if (FAILED(result))
+		throw std::exception();
+
 #endif
 }
 

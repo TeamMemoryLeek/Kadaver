@@ -38,6 +38,8 @@ public:
 
 	void loadFromWave(const char* path);
 
+	void play();
+
 private:
 	AudioSystem* audioSystem_;
 
