@@ -21,6 +21,15 @@ AudioSystem::AudioSystem(Window* window)
 
 AudioSystem::~AudioSystem()
 {
+#ifdef _WIN32
+	// Release primary buffer
+	if (primaryBuffer_)
+		primaryBuffer_->Release();
+
+	// Release direct sound interface
+	if (directSound_)
+		directSound_->Release();
+#endif
 }
 
 #ifdef _WIN32
