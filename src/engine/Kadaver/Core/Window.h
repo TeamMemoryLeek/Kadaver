@@ -24,6 +24,10 @@ public:
 
 	static bool pollEvents();
 
+#if defined(_WIN32)
+	const HWND& getHWND() const { return hwnd_; }
+#endif
+
 private:
 #if defined(_WIN32)
 	HWND hwnd_;
