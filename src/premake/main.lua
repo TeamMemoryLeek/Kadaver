@@ -50,6 +50,12 @@ project "KadaverCore"
 
 	-- Per-toolset settings
 
+	filter {"toolset:msc"}
+		disablewarnings {
+			-- "STL class needs dll-interface"
+			"4251",
+		}
+
 	filter {"toolset:clang or gcc"}
 		buildoptions {
 			"-g",
@@ -108,6 +114,12 @@ project "Demo"
 		cppdialect "C++14"
 
 	-- Per-toolset settings
+
+	filter {"toolset:msc"}
+		disablewarnings {
+			-- "STL class needs dll-interface"
+			"4251",
+		}
 
 	filter {"toolset:clang or gcc"}
 		buildoptions {
