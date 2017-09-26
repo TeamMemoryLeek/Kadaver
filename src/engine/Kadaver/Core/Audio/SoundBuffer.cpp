@@ -14,6 +14,9 @@ SoundBuffer::SoundBuffer(AudioSystem* as)
 
 SoundBuffer::SoundBuffer(AudioSystem* as, const char* path)
 	: audioSystem_(as)
+#ifdef _WIN32
+	, buffer_(nullptr)
+#endif
 {
 	loadFromWave(path);
 }
