@@ -33,7 +33,7 @@ void SoundBuffer::loadFromWave(const char* path)
 
 	int error;
 	FILE* file;
-	uint count;
+	size_t count;
 	WaveHeaderType waveFileHeader;
 	WAVEFORMATEX waveFormat;
 	DSBUFFERDESC bufferDesc;
@@ -55,14 +55,14 @@ void SoundBuffer::loadFromWave(const char* path)
 
 	// Check that the chunk ID is the RIFF format
 	if (waveFileHeader.chunkID[0] != 'R' || waveFileHeader.chunkID[1] != 'I' ||
-		waveFileHeader.chunkID[2] != 'F' || waveFileHeader.chunkID[3] != 'F');
+		waveFileHeader.chunkID[2] != 'F' || waveFileHeader.chunkID[3] != 'F')
 	{
 		throw std::exception();
 	}
 
 	// Check format
 	if (waveFileHeader.format[0] != 'W' || waveFileHeader.format[1] != 'A' ||
-		waveFileHeader.format[2] != 'V' || waveFileHeader.format[3] != 'E');
+		waveFileHeader.format[2] != 'V' || waveFileHeader.format[3] != 'E')
 	{
 		throw std::exception();
 	}
@@ -71,7 +71,7 @@ void SoundBuffer::loadFromWave(const char* path)
 	if (waveFileHeader.subChunkID[0] != 'f' || 
 		waveFileHeader.subChunkID[1] != 'm' ||
 		waveFileHeader.subChunkID[2] != 't' || 
-		waveFileHeader.subChunkID[3] != 0);
+		waveFileHeader.subChunkID[3] != 0)
 	{
 		throw std::exception();
 	}
@@ -96,7 +96,7 @@ void SoundBuffer::loadFromWave(const char* path)
 	if (waveFileHeader.dataChunkID[0] != 'd' ||
 		waveFileHeader.dataChunkID[1] != 'a' ||
 		waveFileHeader.dataChunkID[2] != 't' ||
-		waveFileHeader.dataChunkID[3] != 'a');
+		waveFileHeader.dataChunkID[3] != 'a')
 	{
 		throw std::exception();
 	}
