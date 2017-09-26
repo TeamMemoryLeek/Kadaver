@@ -13,10 +13,9 @@ AudioSystem::AudioSystem(Window* window)
 
 	bool result;
 	
-	result = InitializeDirectSound(window->getHWND());
+	result = initializeDirectSound(window->getHWND());
 	if (!result)
 		throw std::exception("Couldn't initialize DirectSound!");
-
 #endif
 }
 
@@ -25,7 +24,7 @@ AudioSystem::~AudioSystem()
 }
 
 #ifdef _WIN32
-bool AudioSystem::InitializeDirectSound(HWND hwnd)
+bool AudioSystem::initializeDirectSound(HWND hwnd)
 {
 	HRESULT result;
 	DSBUFFERDESC bufferDesc;

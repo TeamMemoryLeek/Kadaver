@@ -15,11 +15,13 @@ public:
 	~AudioSystem();
 private:
 #ifdef _WIN32
-	bool InitializeDirectSound(HWND hwnd);
+	bool initializeDirectSound(HWND hwnd);
 
 	IDirectSound8* directSound_;
 	IDirectSoundBuffer* primaryBuffer_;
 #endif
+
+	friend class SoundBuffer;
 };
 
 KD_NAMESPACE_END
