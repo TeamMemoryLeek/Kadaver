@@ -55,6 +55,11 @@ project "KadaverCore"
 			-- "STL class needs dll-interface"
 			"4251",
 		}
+		links{
+			"dsound.lib",
+			"dxguid.lib",
+			"winmm.lib",
+		}
 
 	filter {"toolset:clang or gcc"}
 		buildoptions {
