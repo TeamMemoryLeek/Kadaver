@@ -72,7 +72,7 @@ Window::Window(int width, int height, const char* title)
 	// Create window
 	hwnd_ = CreateWindowExA(style_ex, WINDOW_CLASS_NAME, title, style, x, y,
 		width, height, nullptr, nullptr, GetModuleHandleA(nullptr), nullptr);
-	if (hwnd_)
+	if (!hwnd_)
 	{
 		throw std::exception("CreateWindowEx failed");
 	}
