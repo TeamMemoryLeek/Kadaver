@@ -1,5 +1,7 @@
 #include <Kadaver/Core/Engine.h>
 #include <Kadaver/Core/Window.h>
+#include <Kadaver/Core/Audio/AudioSystem.h>
+#include <Kadaver/Core/Audio/SoundBuffer.h>
 
 #include <iostream>
 
@@ -13,7 +15,10 @@ int main(int argc, char** argv)
 	{
 		kd::Engine engine;
 		kd::Window window(600, 400, "Demo");
+		kd::AudioSystem audioSystem(&window);
+		kd::SoundBuffer soundBuffer(&audioSystem, "data/audio/test.wav");
 
+		soundBuffer.play();
 		while (kd::Window::pollEvents());
 	}
 	catch (const std::exception& err)
