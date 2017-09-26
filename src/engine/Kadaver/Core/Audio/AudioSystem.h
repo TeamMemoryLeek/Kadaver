@@ -8,7 +8,7 @@
 
 KD_NAMESPACE_BEGIN
 
-class AudioSystem
+class KD_CORE_DLL AudioSystem
 {
 public:
 	AudioSystem(Window* window);

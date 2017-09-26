@@ -12,7 +12,7 @@ KD_NAMESPACE_BEGIN
 
 class AudioSystem;
 
-class SoundBuffer
+class KD_CORE_DLL SoundBuffer
 {
 public:
 	struct WaveHeaderType
