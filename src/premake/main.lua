@@ -13,6 +13,7 @@ workspace "Kadaver"
 	-- Per-action settings
 
 	filter {"action:vs*"}
+		toolset "msc"
 		platforms {
 			"Win32",
 			"x64",
