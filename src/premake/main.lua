@@ -10,14 +10,13 @@ workspace "Kadaver"
 		"Release",
 	}
 
-	-- Visual Studio
+	-- Per-action settings
 
-	if _ACTION:match("vs*") then
+	filter {"action:vs*"}
 		platforms {
 			"Win32",
 			"x64",
 		}
-	end
 
 -- Core library
 
