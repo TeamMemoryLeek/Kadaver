@@ -1,6 +1,8 @@
 #pragma once
 #include "Common.h"
 
+#include <exception>
+
 
 // DLL export/import semantics
 #if defined(LIB_CORE)
