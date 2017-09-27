@@ -1,12 +1,8 @@
 # Global
 build/
 tmp/
-bin/*.dll
-bin/*.exp
-bin/*.exe
-bin/*.ilk
-bin/*.lib
-bin/*.pdb
+bin/*
+!bin/*/
 
 # Visual Studio
 src/.vs/
