@@ -2,6 +2,8 @@
 
 KD_NAMESPACE_BEGIN
 
+AudioListener* AudioListener::activeListener_ = nullptr;
+
 AudioListener::AudioListener(const Vector3& position /*= Vector3::zero*/, 
 	const float& rotation /*= 0.f*/)
 	: position_(position)
