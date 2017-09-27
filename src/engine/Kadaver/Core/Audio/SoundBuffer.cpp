@@ -168,6 +168,7 @@ void SoundBuffer::loadFromWave(const char* path)
 #endif
 }
 
+// TODO: Switch these out for a proper math library
 static int interpolate(float a, float b, float f)
 {
 	return a + ((b - a) * f);
@@ -200,6 +201,20 @@ void SoundBuffer::setVolume(float volume)
 	volume_ = volume;
 }
 
+void SoundBuffer::setPosition(float position)
+{
+#ifdef _WIN32
+	if (!buffer_)
+		return;
+
+	HRESULT result;
+	float pos = interpolate(0, FLOAT_S(dataSize_), position);
+	result = buffer_->SetCurrentPosition(pos);
+	if (FAILED(result))
+		throw std::exception();
+#endif
+}
+
 void SoundBuffer::play()
 {
 #ifdef _WIN32
@@ -207,14 +222,9 @@ void SoundBuffer::play()
 		return;
 
 	HRESULT result;
-	result = buffer_->SetCurrentPosition(0);
-	if (FAILED(result))
-		throw std::exception();
-
 	result = buffer_->Play(0, 0, 0);
 	if (FAILED(result))
 		throw std::exception();
-
 #endif
 }
 

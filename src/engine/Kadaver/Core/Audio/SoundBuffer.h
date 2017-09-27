@@ -38,6 +38,8 @@ public:
 	void loadFromWave(const char* path);
 	// Sets the volume to a value between 0 and 1.
 	void setVolume(float volume);
+	// Sets the position to a value between 0 and 1.
+	void setPosition(float position);
 	void play();
 
 	float getVolume() const { return volume_; }
