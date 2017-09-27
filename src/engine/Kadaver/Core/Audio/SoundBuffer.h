@@ -42,6 +42,9 @@ public:
 	void setPosition(float position);
 	// Pans the audio between -1 and 1
 	void setPan(float pan);
+	// Sets the frequency. Default is 1, lowest is 0, and
+	// highest depends on drivers.
+	void setFrequency(float freq);
 
 	void play();
 	void stop();
@@ -52,6 +55,7 @@ private:
 	AudioSystem* audioSystem_;
 
 	float volume_;
+	unsigned long originalFrequency_;
 	unsigned long dataSize_;
 
 #ifdef _WIN32

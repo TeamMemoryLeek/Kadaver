@@ -6,7 +6,7 @@ KD_NAMESPACE_BEGIN
 
 SoundBuffer::SoundBuffer(AudioSystem* as)
 	: audioSystem_(as)
-	, volume_(0.5f)
+	, volume_(1.0f)
 #ifdef _WIN32
 	, buffer_(nullptr)
 #endif
@@ -169,6 +169,9 @@ void SoundBuffer::loadFromWave(const char* path)
 	delete[] waveData;
 
 	dataSize_ = waveFileHeader.dataSize;
+	
+	if (FAILED(buffer_->GetFrequency(&originalFrequency_)))
+		throw std::exception();
 #endif
 }
 
@@ -231,6 +234,21 @@ void SoundBuffer::setPan(float pan)
 	result = buffer_->SetPan(p);
 	if (FAILED(result))
 		throw std::exception("Couldn't set pan");
+#endif
+}
+
+void kd::SoundBuffer::setFrequency(float freq)
+{
+	freq = FLOAT_S(originalFrequency_) * (freq + 0.01f);
+#ifdef _WIN32
+	if (!buffer_)
+		return;
+	freq = clamp(freq, DSBFREQUENCY_MIN, DSBFREQUENCY_MAX);
+
+	HRESULT result;
+	result = buffer_->SetFrequency(freq);
+	if (FAILED(result))
+		throw std::exception("Couldn't set frequency");
 #endif
 }
 
