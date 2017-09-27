@@ -89,6 +89,10 @@ project "KadaverCore"
 			"../engine/Kadaver/Core/**.m",
 			"../engine/Kadaver/Core/**.mm",
 		}
+		links {
+			"Cocoa.framework",
+		}
+
 	-- Per-configuration settings
 
 	filter {"configurations:Debug"}
