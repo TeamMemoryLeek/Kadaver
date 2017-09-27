@@ -179,6 +179,9 @@ void SoundBuffer::loadFromWave(const char* path)
 void SoundBuffer::play()
 {
 #ifdef _WIN32
+	if (!buffer_)
+		return;
+
 	HRESULT result;
 	result = buffer_->SetCurrentPosition(0);
 	if (FAILED(result))
