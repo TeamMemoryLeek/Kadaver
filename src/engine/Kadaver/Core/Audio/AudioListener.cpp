@@ -27,7 +27,7 @@ void kd::AudioListener::playFromSource(SoundBuffer* buffer, Vector3 source)
 	float pan = cross.y;
 
 	buffer->setVolume(volume);
-	buffer->setPan(pan * 0.2f);
+	buffer->setPan(pan * 0.4f);
 	buffer->play();
 }
 
