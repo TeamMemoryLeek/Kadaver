@@ -94,6 +94,11 @@ project "KadaverCore"
 			"Cocoa.framework",
 		}
 
+	filter {"system:not macosx"}
+		removefiles {
+			"../engine/Kadaver/Core/ObjC/**",
+		}
+
 	-- Per-configuration settings
 
 	filter {"configurations:Debug"}
