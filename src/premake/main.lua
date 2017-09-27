@@ -82,6 +82,13 @@ project "KadaverCore"
 			"pthread",
 		}
 
+	-- Per-system settings
+
+	filter {"system:macosx"}
+		files {
+			"../engine/Kadaver/Core/**.m",
+			"../engine/Kadaver/Core/**.mm",
+		}
 	-- Per-configuration settings
 
 	filter {"configurations:Debug"}
