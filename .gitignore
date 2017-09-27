@@ -1,12 +1,8 @@
 # Global
 build/
 tmp/
-bin/*.dll
-bin/*.exp
-bin/*.exe
-bin/*.ilk
-bin/*.lib
-bin/*.pdb
+bin/*
+!bin/*/
 
 # Visual Studio
 src/.vs/
@@ -25,5 +21,6 @@ src/*.txt
 Makefile
 
 # Xcode
+bin/*.dSYM/
 src/*.xcodeproj/
 src/*.xcworkspace/
