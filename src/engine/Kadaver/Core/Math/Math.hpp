@@ -2,10 +2,7 @@
 
 #include "Kadaver/Core/Core.h"
 
-namespace std
-{
-#include <math.h>
-}
+#include <cmath>
 
 #define T_S(VALUE) static_cast<T>(VALUE)
 
