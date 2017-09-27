@@ -1,7 +1,8 @@
 # Global
-bin/
 build/
 tmp/
+
+*.exp
 
 # Visual Studio
 src/.vs/

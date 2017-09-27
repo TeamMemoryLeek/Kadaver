@@ -18,7 +18,17 @@ workspace "Kadaver"
 			"Win32",
 			"x64",
 		}
+	filter {"configurations:Debug"}
+		defines {
+			"DEBUG",
+		}
 
+	filter {"configurations:Release"}
+		defines {
+			"RELEASE",
+			"NDEBUG",
+		}
+		
 -- Core library
 
 project "KadaverCore"
@@ -55,6 +65,11 @@ project "KadaverCore"
 			-- "STL class needs dll-interface"
 			"4251",
 		}
+		links{
+			"dsound.lib",
+			"dxguid.lib",
+			"winmm.lib",
+		}
 
 	filter {"toolset:clang or gcc"}
 		buildoptions {
@@ -84,6 +99,8 @@ project "Demo"
 	location ".."
 	targetdir "../../bin"
 	objdir "../../build"
+	debugdir "$(OutDir)"
+	
 	files {
 		"../demo/**.h",
 		"../demo/**.cpp",
