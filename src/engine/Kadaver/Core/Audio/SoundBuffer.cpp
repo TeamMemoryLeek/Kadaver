@@ -124,7 +124,8 @@ void SoundBuffer::loadFromWave(const char* path)
 	result = audioSystem_->directSound_->CreateSoundBuffer(
 		&bufferDesc, &tempBuffer, 0);
 
-	result = tempBuffer->QueryInterface(IID_IDirectSoundBuffer8, (void**)&buffer_);
+	result = tempBuffer->QueryInterface(IID_IDirectSoundBuffer8, 
+		(void**)&buffer_);
 	if (FAILED(result))
 		throw std::exception();
 
