@@ -18,6 +18,9 @@ workspace "Kadaver"
 			"Win32",
 			"x64",
 		}
+
+	-- Per-configuration settings
+
 	filter {"configurations:Debug"}
 		defines {
 			"DEBUG",
@@ -86,6 +89,8 @@ project "KadaverCore"
 
 	filter {"configurations:Release"}
 		optimize "Full"
+
+	-- Global settings
 
 	filter {}
 		rtti "Off"
@@ -160,6 +165,8 @@ project "Demo"
 
 	filter {"configurations:Release"}
 		optimize "Full"
+
+	-- Global settings
 
 	filter {}
 		rtti "Off"
