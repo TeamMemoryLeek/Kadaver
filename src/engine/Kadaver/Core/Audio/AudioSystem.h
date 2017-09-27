@@ -13,6 +13,8 @@ class KD_CORE_DLL AudioSystem
 public:
 	AudioSystem(Window* window);
 	~AudioSystem();
+
+
 private:
 #ifdef _WIN32
 	bool initializeDirectSound(HWND hwnd);
@@ -20,6 +22,9 @@ private:
 	IDirectSound8* directSound_;
 	IDirectSoundBuffer* primaryBuffer_;
 #endif
+
+	unsigned long minSampleRate_;
+	unsigned long maxSampleRate_;
 
 	friend class SoundBuffer;
 };
