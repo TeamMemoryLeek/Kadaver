@@ -16,13 +16,10 @@ int main(int argc, char** argv)
 		kd::Engine engine;
 		kd::Window window(600, 400, "Demo");
 		kd::AudioSystem audioSystem(&window);
-		kd::SoundBuffer soundBuffer(&audioSystem);
-		soundBuffer.loadFromWave("data/audio/cymbal.wav");
-		kd::SoundBuffer soundBuffer2(&audioSystem);
-		soundBuffer2.loadFromWave("data/audio/snare.wav");
+		kd::SoundBuffer startUpAudio(&audioSystem);
+		startUpAudio.loadFromWave("data/audio/startup_sound.wav");
+		startUpAudio.play();
 
-		soundBuffer.play();
-		soundBuffer2.play();
 		while (kd::Window::pollEvents())
 		{
 		}

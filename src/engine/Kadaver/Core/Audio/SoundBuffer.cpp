@@ -34,7 +34,6 @@ void SoundBuffer::loadFromWave(const char* path)
 	WaveHeaderType waveFileHeader;
 	WAVEFORMATEX waveFormat;
 	DSBUFFERDESC bufferDesc;
-	HRESULT result;
 	IDirectSoundBuffer* tempBuffer;
 	byte* waveData;
 	byte* buffer;
@@ -121,12 +120,12 @@ void SoundBuffer::loadFromWave(const char* path)
 	bufferDesc.guid3DAlgorithm = GUID_NULL;
 
 	// Create temp buffer
-	result = audioSystem_->directSound_->CreateSoundBuffer(
-		&bufferDesc, &tempBuffer, 0);
+	if (FAILED(audioSystem_->directSound_->CreateSoundBuffer(
+		&bufferDesc, &tempBuffer, 0)))
+		throw std::exception();
 
-	result = tempBuffer->QueryInterface(IID_IDirectSoundBuffer8, 
-		(void**)&buffer_);
-	if (FAILED(result))
+	if (FAILED(tempBuffer->QueryInterface(IID_IDirectSoundBuffer8,
+		(void**)&buffer_)))
 		throw std::exception();
 
 	// Release temp buffer
@@ -152,24 +151,24 @@ void SoundBuffer::loadFromWave(const char* path)
 		throw std::exception();
 
 	// Lock buffer
-	result = buffer_->Lock(0, waveFileHeader.dataSize, (void**)&buffer, 
-		(DWORD*)&bufferSize, 0, 0, 0);
-	if (FAILED(result))
+	if (FAILED(buffer_->Lock(0, waveFileHeader.dataSize, (void**)&buffer,
+		(DWORD*)&bufferSize, 0, 0, 0)))
 		throw std::exception();
 
 	// Copy data into buffer
 	memcpy(buffer, waveData, waveFileHeader.dataSize);
 
 	// Unlock buffer
-	result = buffer_->Unlock((void*)buffer, bufferSize, 0, 0);
-	if (FAILED(result))
+	if (FAILED(buffer_->Unlock((void*)buffer, bufferSize, 0, 0)))
 		throw std::exception();
 
 	// Release wave data
 	delete[] waveData;
 
+	// Store data size
 	dataSize_ = waveFileHeader.dataSize;
 	
+	// Store original frequency
 	if (FAILED(buffer_->GetFrequency(&originalFrequency_)))
 		throw std::exception();
 #endif
@@ -198,10 +197,8 @@ void SoundBuffer::setVolume(float volume)
 	if (!buffer_)
 		return;
 
-	HRESULT result;
 	int vol = interpolate(FLOAT_S(DSBVOLUME_MIN), FLOAT_S(DSBVOLUME_MAX), volume);
-	result = buffer_->SetVolume(vol);
-	if (FAILED(result))
+	if (FAILED(buffer_->SetVolume(vol)))
 		throw std::exception("Couldn't set volume");
 #endif
 
@@ -214,10 +211,8 @@ void SoundBuffer::setPosition(float position)
 	if (!buffer_)
 		return;
 
-	HRESULT result;
 	float pos = interpolate(0, FLOAT_S(dataSize_), position);
-	result = buffer_->SetCurrentPosition(pos);
-	if (FAILED(result))
+	if (FAILED(buffer_->SetCurrentPosition(pos)))
 		throw std::exception("Couldn't set position");
 #endif
 }
@@ -229,10 +224,8 @@ void SoundBuffer::setPan(float pan)
 #ifdef _WIN32
 	if (!buffer_)
 		return;
-	HRESULT result;
 	int p = interpolate(0.0f, FLOAT_S(DSBPAN_RIGHT), pan);
-	result = buffer_->SetPan(p);
-	if (FAILED(result))
+	if (FAILED(buffer_->SetPan(p)))
 		throw std::exception("Couldn't set pan");
 #endif
 }
@@ -245,9 +238,7 @@ void kd::SoundBuffer::setFrequency(float freq)
 		return;
 	freq = clamp(freq, DSBFREQUENCY_MIN, DSBFREQUENCY_MAX);
 
-	HRESULT result;
-	result = buffer_->SetFrequency(freq);
-	if (FAILED(result))
+	if (FAILED(buffer_->SetFrequency(freq)))
 		throw std::exception("Couldn't set frequency");
 #endif
 }
@@ -258,9 +249,7 @@ void SoundBuffer::play()
 	if (!buffer_)
 		return;
 
-	HRESULT result;
-	result = buffer_->Play(0, 0, 0);
-	if (FAILED(result))
+	if (FAILED(buffer_->Play(0, 0, 0)))
 		throw std::exception("Couldn't play");
 #endif
 }
@@ -271,9 +260,7 @@ void kd::SoundBuffer::stop()
 	if (!buffer_)
 		return;
 
-	HRESULT result;
-	result = buffer_->Stop();
-	if (FAILED(result))
+	if (FAILED(buffer_->Stop()))
 		throw std::exception("Couldn't stop");
 #endif
 }

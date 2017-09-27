@@ -35,16 +35,13 @@ AudioSystem::~AudioSystem()
 #ifdef _WIN32
 bool AudioSystem::initializeDirectSound(HWND hwnd)
 {
-	HRESULT result;
 	DSBUFFERDESC bufferDesc;
 	WAVEFORMATEX waveFormat;
 
-	result = DirectSoundCreate8(0, &directSound_, 0);
-	if (FAILED(result))
+	if (FAILED(DirectSoundCreate8(0, &directSound_, 0)))
 		return false;
 
-	result = directSound_->SetCooperativeLevel(hwnd, DSSCL_PRIORITY);
-	if (FAILED(result))
+	if (FAILED(directSound_->SetCooperativeLevel(hwnd, DSSCL_PRIORITY)))
 		return false;
 
 	// Setup primary buffer desc
@@ -59,8 +56,8 @@ bool AudioSystem::initializeDirectSound(HWND hwnd)
 	bufferDesc.guid3DAlgorithm = GUID_NULL;
 
 	// Create primary buffer
-	result = directSound_->CreateSoundBuffer(&bufferDesc, &primaryBuffer_, 0);
-	if (FAILED(result))
+	if (FAILED(directSound_->CreateSoundBuffer(&bufferDesc, 
+		&primaryBuffer_, 0)))
 		return false;
 
 	// Setup primary buffer sound format
@@ -75,8 +72,7 @@ bool AudioSystem::initializeDirectSound(HWND hwnd)
 	waveFormat.cbSize = 0;
 
 	// Set primary buffer sound format
-	result = primaryBuffer_->SetFormat(&waveFormat);
-	if (FAILED(result))
+	if (FAILED(primaryBuffer_->SetFormat(&waveFormat)))
 		return false;
 
 	return true;
