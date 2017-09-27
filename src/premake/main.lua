@@ -18,7 +18,17 @@ workspace "Kadaver"
 			"Win32",
 			"x64",
 		}
+	filter {"configurations:Debug"}
+		defines {
+			"DEBUG",
+		}
 
+	filter {"configurations:Release"}
+		defines {
+			"RELEASE",
+			"NDEBUG",
+		}
+		
 -- Core library
 
 project "KadaverCore"
