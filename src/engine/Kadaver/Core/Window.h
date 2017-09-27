@@ -27,6 +27,8 @@ public:
 	~Window();
 
 	static bool pollEvents();
+	
+	void destroy();
 
 #if defined(_WIN32)
 	const HWND& getHWND() const { return hwnd_; }

@@ -120,9 +120,7 @@ Window::Window(int width, int height, const char* title)
 
 Window::~Window()
 {
-#if defined(_WIN32)
-	DestroyWindow(hwnd_);
-#endif
+	destroy();
 }
 
 bool Window::pollEvents()
@@ -176,6 +174,23 @@ bool Window::pollEvents()
 #endif
 
 	return true;
+}
+
+void Window::destroy()
+{
+#if defined(_WIN32)
+	DestroyWindow(hwnd_);
+	hwnd_ = nullptr;
+#elif defined(__linux__)
+	if (display_)
+	{
+		XDestroyWindow(display_, window_);
+		XCloseDisplay(display_);
+		display_ = nullptr;
+		window_ = 0;
+		deleteMessage_ = 0;
+	}
+#endif
 }
 
 KD_NAMESPACE_END
