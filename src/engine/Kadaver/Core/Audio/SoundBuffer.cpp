@@ -23,9 +23,11 @@ SoundBuffer::SoundBuffer(AudioSystem* as, const char* path)
 
 SoundBuffer::~SoundBuffer()
 {
+#ifdef _WIN32
 	// Release buffer
 	if (buffer_)
 		buffer_->Release();
+#endif
 }
 
 void SoundBuffer::loadFromWave(const char* path)
