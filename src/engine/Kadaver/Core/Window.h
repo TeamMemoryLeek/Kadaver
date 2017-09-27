@@ -4,6 +4,10 @@
 #if defined(_WIN32)
 #include <Windows.h>
 #include <vector>
+#elif defined(__linux__)
+#include <X11/Xlib.h>
+#include <X11/Xos.h>
+#include <X11/Xutil.h>
 #endif
 
 
@@ -23,6 +27,8 @@ public:
 	~Window();
 
 	static bool pollEvents();
+	
+	void destroy();
 
 #if defined(_WIN32)
 	const HWND& getHWND() const { return hwnd_; }
@@ -31,6 +37,10 @@ public:
 private:
 #if defined(_WIN32)
 	HWND hwnd_;
+#elif defined(__linux__)
+	_XDisplay* display_;
+	XID window_;
+	Atom deleteMessage_;
 #endif
 };
 

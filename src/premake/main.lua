@@ -18,6 +18,9 @@ workspace "Kadaver"
 			"Win32",
 			"x64",
 		}
+
+	-- Per-configuration settings
+
 	filter {"configurations:Debug"}
 		defines {
 			"DEBUG",
@@ -87,6 +90,8 @@ project "KadaverCore"
 	filter {"configurations:Release"}
 		optimize "Full"
 
+	-- Global settings
+
 	filter {}
 		rtti "Off"
 		warnings "Extra"
@@ -146,6 +151,13 @@ project "Demo"
 			"pthread",
 		}
 
+	-- Per-system settings
+
+	filter {"system:linux"}
+		links {
+			"X11",
+		}
+
 	-- Per-configuration settings
 
 	filter {"configurations:Debug"}
@@ -153,6 +165,8 @@ project "Demo"
 
 	filter {"configurations:Release"}
 		optimize "Full"
+
+	-- Global settings
 
 	filter {}
 		rtti "Off"
