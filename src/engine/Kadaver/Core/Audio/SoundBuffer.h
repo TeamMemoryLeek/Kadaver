@@ -40,6 +40,9 @@ public:
 	void setVolume(float volume);
 	// Sets the position to a value between 0 and 1.
 	void setPosition(float position);
+	// Pans the audio between -1 and 1
+	void setPan(float pan);
+
 	void play();
 	void stop();
 

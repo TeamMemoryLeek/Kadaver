@@ -211,7 +211,22 @@ void SoundBuffer::setPosition(float position)
 	float pos = interpolate(0, FLOAT_S(dataSize_), position);
 	result = buffer_->SetCurrentPosition(pos);
 	if (FAILED(result))
-		throw std::exception();
+		throw std::exception("Couldn't set position");
+#endif
+}
+
+void SoundBuffer::setPan(float pan)
+{
+	pan = clamp(pan, -1.0f, 1.0f);
+
+#ifdef _WIN32
+	if (!buffer_)
+		return;
+	HRESULT result;
+	int p = interpolate(0.0f, FLOAT_S(DSBPAN_RIGHT), pan);
+	result = buffer_->SetPan(p);
+	if (FAILED(result))
+		throw std::exception("Couldn't set pan");
 #endif
 }
 
@@ -224,7 +239,7 @@ void SoundBuffer::play()
 	HRESULT result;
 	result = buffer_->Play(0, 0, 0);
 	if (FAILED(result))
-		throw std::exception();
+		throw std::exception("Couldn't play");
 #endif
 }
 
@@ -237,7 +252,7 @@ void kd::SoundBuffer::stop()
 	HRESULT result;
 	result = buffer_->Stop();
 	if (FAILED(result))
-		throw std::exception();
+		throw std::exception("Couldn't stop");
 #endif
 }
 
