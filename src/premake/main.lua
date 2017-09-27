@@ -45,6 +45,7 @@ project "KadaverCore"
 	files {
 		"../engine/Kadaver/Core/**.h",
 		"../engine/Kadaver/Core/**.cpp",
+		"../engine/Kadaver/Core/**.hpp",
 	}
 	includedirs {
 		"../engine",
@@ -109,6 +110,7 @@ project "Demo"
 	files {
 		"../demo/**.h",
 		"../demo/**.cpp",
+		"../demo/**.hpp",
 	}
 	includedirs {
 		"../demo",
