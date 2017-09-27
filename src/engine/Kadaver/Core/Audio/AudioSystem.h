@@ -23,9 +23,6 @@ private:
 	IDirectSoundBuffer* primaryBuffer_;
 #endif
 
-	unsigned long minSampleRate_;
-	unsigned long maxSampleRate_;
-
 	friend class SoundBuffer;
 };
 

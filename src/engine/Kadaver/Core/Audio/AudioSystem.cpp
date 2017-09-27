@@ -79,16 +79,6 @@ bool AudioSystem::initializeDirectSound(HWND hwnd)
 	if (FAILED(result))
 		return false;
 
-	// Get sample rate limits
-	LPDSCAPS caps = nullptr;
-	if (FAILED(directSound_->GetCaps(caps)))
-		printf("Failed to get caps!\n");
-	if (caps)
-	{
-		minSampleRate_ = caps->dwMinSecondarySampleRate;
-		maxSampleRate_ = caps->dwMaxSecondarySampleRate;
-	}
-
 	return true;
 }
 #endif
