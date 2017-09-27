@@ -33,15 +33,19 @@ public:
 	};
 
 	SoundBuffer(AudioSystem* as);
-	SoundBuffer(AudioSystem* as, const char* path);
 	~SoundBuffer();
 
 	void loadFromWave(const char* path);
-
+	// Sets the volume to a value between 0 and 1.
+	void setVolume(float volume);
 	void play();
+
+	float getVolume() const { return volume_; }
 
 private:
 	AudioSystem* audioSystem_;
+
+	float volume_;
 
 #ifdef _WIN32
 	IDirectSoundBuffer8* buffer_;

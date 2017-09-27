@@ -6,19 +6,11 @@ KD_NAMESPACE_BEGIN
 
 SoundBuffer::SoundBuffer(AudioSystem* as)
 	: audioSystem_(as)
+	, volume_(0.5f)
 #ifdef _WIN32
 	, buffer_(nullptr)
 #endif
 {
-}
-
-SoundBuffer::SoundBuffer(AudioSystem* as, const char* path)
-	: audioSystem_(as)
-#ifdef _WIN32
-	, buffer_(nullptr)
-#endif
-{
-	loadFromWave(path);
 }
 
 SoundBuffer::~SoundBuffer()
@@ -176,6 +168,35 @@ void SoundBuffer::loadFromWave(const char* path)
 #endif
 }
 
+static int interpolate(float a, float b, float f)
+{
+	return a + ((b - a) * f);
+}
+
+static float clamp(float val, float min, float max)
+{
+	if (val < min)
+		return min;
+	if (val > max)
+		return max;
+	return val;
+}
+
+void SoundBuffer::setVolume(float volume)
+{
+	volume = clamp(volume, 0.0f, 1.0f);
+
+#ifdef _WIN32
+	HRESULT result;
+	int vol = interpolate(FLOAT_S(DSBVOLUME_MIN), FLOAT_S(DSBVOLUME_MAX), volume);
+	result = buffer_->SetVolume(vol);
+	if (FAILED(result))
+		throw std::exception("Couldn't set volume");
+#endif
+
+	volume_ = volume;
+}
+
 void SoundBuffer::play()
 {
 #ifdef _WIN32
@@ -185,10 +206,6 @@ void SoundBuffer::play()
 	HRESULT result;
 	result = buffer_->SetCurrentPosition(0);
 	if (FAILED(result))
-		throw std::exception();
-
-	result = buffer_->SetVolume(DSBVOLUME_MAX);
-	if(FAILED(result))
 		throw std::exception();
 
 	result = buffer_->Play(0, 0, 0);
