@@ -129,6 +129,13 @@ project "Demo"
 			"pthread",
 		}
 
+	-- Per-system settings
+
+	filter {"system:linux"}
+		links {
+			"X11",
+		}
+
 	-- Per-configuration settings
 
 	filter {"configurations:Debug"}
