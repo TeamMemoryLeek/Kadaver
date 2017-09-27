@@ -46,6 +46,7 @@ private:
 	AudioSystem* audioSystem_;
 
 	float volume_;
+	unsigned long dataSize_;
 
 #ifdef _WIN32
 	IDirectSoundBuffer8* buffer_;

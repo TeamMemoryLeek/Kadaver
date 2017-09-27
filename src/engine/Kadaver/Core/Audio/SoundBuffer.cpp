@@ -164,7 +164,7 @@ void SoundBuffer::loadFromWave(const char* path)
 	// Release wave data
 	delete[] waveData;
 
-
+	dataSize_ = waveFileHeader.dataSize;
 #endif
 }
 
