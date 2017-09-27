@@ -210,7 +210,7 @@ void SoundBuffer::setPan(float pan)
 #ifdef _WIN32
 	if (!buffer_)
 		return;
-	int p = interpolate<int>(0, DSBPAN_RIGHT, pan);
+	int p = interpolate<int>(0, 5000, pan);
 	if (FAILED(buffer_->SetPan(p)))
 		throw std::exception("Couldn't set pan");
 #endif
