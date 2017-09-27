@@ -183,10 +183,13 @@ static float clamp(float val, float min, float max)
 }
 
 void SoundBuffer::setVolume(float volume)
-{
+{	
 	volume = clamp(volume, 0.0f, 1.0f);
 
 #ifdef _WIN32
+	if (!buffer_)
+		return;
+
 	HRESULT result;
 	int vol = interpolate(FLOAT_S(DSBVOLUME_MIN), FLOAT_S(DSBVOLUME_MAX), volume);
 	result = buffer_->SetVolume(vol);
