@@ -7,7 +7,7 @@ namespace std
 #include <math.h>
 }
 
-#define T_S(VALUE) static_cast<T>(VALUE);
+#define T_S(VALUE) static_cast<T>(VALUE)
 
 KD_NAMESPACE_BEGIN
 
@@ -60,6 +60,36 @@ inline T tan(const T& degrees)
 }
 
 template<typename T = float>
+inline T sqrt(const T& value)
+{
+	return T_S(std::sqrt(value));
+}
+
+template<typename T = float>
+inline T sqrt(const T& base, const T& exponent)
+{
+	return T_S(std::pow(base, exponent));
+}
+
+template<typename T = float>
+inline T abs(const T& value)
+{
+	if (value < T_S(0.0f))
+		return -value;
+	return value;
+}
+
+template<typename T = float>
+inline T sign(const T& value)
+{
+	if (value == T_S(0.0f))
+		return T_S(0.0f);
+	if (value > T_S(0.0f))
+		return T_S(1.0f);
+	return T_S(-1.0f);
+}
+
+template<typename T = float>
 inline T clamp(const T& value, const T& min, const T& max)
 {
 	if (value < min)
@@ -82,7 +112,31 @@ inline T saturate(const T& value)
 template<typename T = float>
 inline T interpolate(const T& a, const T& b, const float& fraction)
 {
-	return (T)(a + (b - a) * fraction);
+	return T_S(a + (b - a) * ((-cos(fraction * 180.0f) + 1.0f) * 0.5f));
+}
+
+template<typename T = float>
+inline T interpolateCosine(const T& a, const T& b, const float& fraction)
+{
+	return T_S((a + (b - a) * fraction));
+}
+
+template<typename T = float>
+inline T round(const T& value)
+{
+	return T_S(INT_S(value + T_S(0.5f)));
+}
+
+template<typename T = float>
+inline T floor(const T& value)
+{
+	return T_S(INT_S(value));
+}
+
+template<typename T = float>
+inline T ceil(const T& value)
+{
+	return T_S(INT_S(value + T_S(1.0f)));
 }
 
 KD_NAMESPACE_END
