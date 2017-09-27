@@ -5,7 +5,7 @@
 
 KD_NAMESPACE_BEGIN
 
-class Vector3
+class KD_CORE_DLL Vector3
 {
 public:
 	
