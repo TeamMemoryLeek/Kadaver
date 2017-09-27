@@ -109,13 +109,13 @@ inline T saturate(const T& value)
 template<typename T = float>
 inline T interpolate(const T& a, const T& b, const float& fraction)
 {
-	return T_S(a + (b - a) * ((-cos(fraction * 180.0f) + 1.0f) * 0.5f));
+	return T_S((a + FLOAT_S((b - a) * fraction)));
 }
 
 template<typename T = float>
 inline T interpolateCosine(const T& a, const T& b, const float& fraction)
 {
-	return T_S((a + (b - a) * fraction));
+	return T_S(a + FLOAT_S((b - a) * ((-cos(fraction * 180.0f) + 1.0f) * 0.5f)));
 }
 
 template<typename T = float>
