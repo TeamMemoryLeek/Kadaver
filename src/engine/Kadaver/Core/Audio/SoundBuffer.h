@@ -49,6 +49,8 @@ public:
 	void play();
 	void stop();
 
+	float getProgress() const;
+	bool isPlaying() const;
 	float getVolume() const { return volume_; }
 
 private:

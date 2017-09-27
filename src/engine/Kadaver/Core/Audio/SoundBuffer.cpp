@@ -251,6 +251,28 @@ void kd::SoundBuffer::stop()
 #endif
 }
 
+float kd::SoundBuffer::getProgress() const
+{
+#ifdef _WIN32
+	if (!buffer_)
+		return false;
+	unsigned long currentPos;
+	if (FAILED(buffer_->GetCurrentPosition(&currentPos, nullptr)))
+		return false;
+
+	return FLOAT_S(currentPos) / FLOAT_S(dataSize_);
+#else
+	return 0.f;
+#endif
+}
+
+bool kd::SoundBuffer::isPlaying() const
+{
+	float progress = getProgress();
+	if (progress != 0.0f && progress != 1.0f)
+		return true;
+	return false;
+}
 
 KD_NAMESPACE_END
 
