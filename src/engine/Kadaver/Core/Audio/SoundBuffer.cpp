@@ -1,5 +1,6 @@
 #include "SoundBuffer.h"
 #include "AudioSystem.h"
+#include "Kadaver/Core/Math/Math.hpp"
 #include <stdio.h>
 
 KD_NAMESPACE_BEGIN
@@ -174,21 +175,6 @@ void SoundBuffer::loadFromWave(const char* path)
 #endif
 }
 
-// TODO: Switch these out for a proper math library
-static int interpolate(float a, float b, float f)
-{
-	return a + ((b - a) * f);
-}
-
-static float clamp(float val, float min, float max)
-{
-	if (val < min)
-		return min;
-	if (val > max)
-		return max;
-	return val;
-}
-
 void SoundBuffer::setVolume(float volume)
 {	
 	volume = clamp(volume, 0.0f, 1.0f);
@@ -197,7 +183,7 @@ void SoundBuffer::setVolume(float volume)
 	if (!buffer_)
 		return;
 
-	int vol = interpolate(FLOAT_S(DSBVOLUME_MIN), FLOAT_S(DSBVOLUME_MAX), volume);
+	int vol = interpolate<int>(DSBVOLUME_MIN, DSBVOLUME_MAX, volume);
 	if (FAILED(buffer_->SetVolume(vol)))
 		throw std::exception("Couldn't set volume");
 #endif
@@ -211,7 +197,7 @@ void SoundBuffer::setPosition(float position)
 	if (!buffer_)
 		return;
 
-	float pos = interpolate(0, FLOAT_S(dataSize_), position);
+	int pos = interpolate<int>(0, dataSize_, position);
 	if (FAILED(buffer_->SetCurrentPosition(pos)))
 		throw std::exception("Couldn't set position");
 #endif
@@ -224,7 +210,7 @@ void SoundBuffer::setPan(float pan)
 #ifdef _WIN32
 	if (!buffer_)
 		return;
-	int p = interpolate(0.0f, FLOAT_S(DSBPAN_RIGHT), pan);
+	int p = interpolate<int>(0, DSBPAN_RIGHT, pan);
 	if (FAILED(buffer_->SetPan(p)))
 		throw std::exception("Couldn't set pan");
 #endif
@@ -236,9 +222,9 @@ void kd::SoundBuffer::setFrequency(float freq)
 #ifdef _WIN32
 	if (!buffer_)
 		return;
-	freq = clamp(freq, DSBFREQUENCY_MIN, DSBFREQUENCY_MAX);
+	freq = clamp(freq, FLOAT_S(DSBFREQUENCY_MIN), FLOAT_S(DSBFREQUENCY_MAX));
 
-	if (FAILED(buffer_->SetFrequency(freq)))
+	if (FAILED(buffer_->SetFrequency(UINT(freq))))
 		throw std::exception("Couldn't set frequency");
 #endif
 }
