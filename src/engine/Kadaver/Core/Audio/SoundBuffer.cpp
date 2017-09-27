@@ -111,7 +111,10 @@ void SoundBuffer::loadFromWave(const char* path)
 
 	// Set the description of the secondary buffer
 	bufferDesc.dwSize = sizeof(DSBUFFERDESC);
-	bufferDesc.dwFlags = DSBCAPS_CTRLVOLUME;
+	bufferDesc.dwFlags = 
+		DSBCAPS_CTRLVOLUME | 
+		DSBCAPS_CTRLPAN | 
+		DSBCAPS_CTRLFREQUENCY;
 	bufferDesc.dwBufferBytes = waveFileHeader.dataSize;
 	bufferDesc.dwReserved = 0;
 	bufferDesc.lpwfxFormat = &waveFormat;
