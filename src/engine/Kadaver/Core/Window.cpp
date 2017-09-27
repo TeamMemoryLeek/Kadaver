@@ -1,3 +1,5 @@
+#if !defined(__APPLE__)
+
 #include "Window.h"
 
 #include <vector>
@@ -194,3 +196,5 @@ void Window::destroy()
 }
 
 KD_NAMESPACE_END
+
+#endif

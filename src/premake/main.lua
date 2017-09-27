@@ -83,6 +83,22 @@ project "KadaverCore"
 			"pthread",
 		}
 
+	-- Per-system settings
+
+	filter {"system:macosx"}
+		files {
+			"../engine/Kadaver/Core/**.m",
+			"../engine/Kadaver/Core/**.mm",
+		}
+		links {
+			"Cocoa.framework",
+		}
+
+	filter {"system:not macosx"}
+		removefiles {
+			"../engine/Kadaver/Core/ObjC/**",
+		}
+
 	-- Per-configuration settings
 
 	filter {"configurations:Debug"}

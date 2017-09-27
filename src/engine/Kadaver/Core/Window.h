@@ -41,6 +41,8 @@ private:
 	_XDisplay* display_;
 	XID window_;
 	Atom deleteMessage_;
+#elif defined(__APPLE__)
+	void* window_;
 #endif
 };
 
