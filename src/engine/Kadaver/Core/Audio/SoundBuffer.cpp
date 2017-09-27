@@ -228,4 +228,19 @@ void SoundBuffer::play()
 #endif
 }
 
+void kd::SoundBuffer::stop()
+{
+#ifdef _WIN32
+	if (!buffer_)
+		return;
+
+	HRESULT result;
+	result = buffer_->Stop();
+	if (FAILED(result))
+		throw std::exception();
+#endif
+}
+
+
 KD_NAMESPACE_END
+

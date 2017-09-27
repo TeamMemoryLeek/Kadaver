@@ -41,6 +41,7 @@ public:
 	// Sets the position to a value between 0 and 1.
 	void setPosition(float position);
 	void play();
+	void stop();
 
 	float getVolume() const { return volume_; }
 
