@@ -49,7 +49,10 @@ bool AudioSystem::initializeDirectSound(HWND hwnd)
 
 	// Setup primary buffer desc
 	bufferDesc.dwSize = sizeof(DSBUFFERDESC);
-	bufferDesc.dwFlags = DSBCAPS_PRIMARYBUFFER | DSBCAPS_CTRLVOLUME;
+	bufferDesc.dwFlags =
+		DSBCAPS_PRIMARYBUFFER |
+		DSBCAPS_CTRLVOLUME |
+		DSBCAPS_CTRLPAN;
 	bufferDesc.dwBufferBytes = 0;
 	bufferDesc.dwReserved = 0;
 	bufferDesc.lpwfxFormat = 0;
