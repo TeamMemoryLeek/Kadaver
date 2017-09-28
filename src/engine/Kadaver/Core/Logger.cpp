@@ -60,6 +60,8 @@ void Logger::print(std::string message, uint level)
 #else
 	printf("\033[1;37m");
 #endif
+
+	mutex_.unlock();
 }
 
 void Logger::log(
