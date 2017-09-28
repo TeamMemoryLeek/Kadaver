@@ -16,9 +16,8 @@ AudioListener::AudioListener(const Vector3& position /*= Vector3::zero*/,
 void kd::AudioListener::apply(AudioBuffer* buffer, Vector3 source)
 {
 	// Calculate distance
-	// TODO: Do this with squared length
-	float distance = (source - position_).length();
-	float volume = 1 / (distance * 0.02f + 1);
+	float distance = (source - position_).lengthSquared();
+	float volume = 1 / (distance * 0.003f + 1.f);
 
 	// Calculate panning
 	Vector3 listenerToSource = (source - position_).normalized();

@@ -183,7 +183,7 @@ void AudioBuffer::setVolume(float volume)
 	if (!buffer_)
 		return;
 
-	int vol = interpolate<int>(-5000, DSBVOLUME_MAX, volume);
+	int vol = interpolate<int>(-7500, DSBVOLUME_MAX, volume);
 	if (FAILED(buffer_->SetVolume(vol)))
 		throw std::exception("Couldn't set volume");
 #endif
