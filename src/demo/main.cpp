@@ -37,6 +37,11 @@ void mouseButtonCallback(int action, int button)
 	}
 }
 
+void mouseWheelCallback(int delta)
+{
+	KD_LOGGER.log("Scrolling: " + std::to_string(delta));
+}
+
 int main(int argc, char** argv)
 {
 	KD_UNUSED(argc);
@@ -45,6 +50,7 @@ int main(int argc, char** argv)
 	kd::Window::setKeyCallback(keyCallback);
 	kd::Window::setMouseMoveCallback(mouseMoveCallback);
 	kd::Window::setMouseButtonCallback(mouseButtonCallback);
+	kd::Window::setMouseWheelCallback(mouseWheelCallback);
 
 	try
 	{

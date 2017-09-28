@@ -13,6 +13,7 @@ KD_NAMESPACE_BEGIN
 void(*Window::keyCallback)(int action, int key) = nullptr;
 void(*Window::mouseButtonCallback)(int action, int button) = nullptr;
 void(*Window::mouseMoveCallback)(int x, int y) = nullptr;
+void(*Window::mouseWheelCallback)(int delta) = nullptr;
 
 #if defined(_WIN32)
 
@@ -99,6 +100,13 @@ LRESULT CALLBACK Window::wndProc(HWND hwnd, UINT message, WPARAM wparam,
 		if (mouseButtonCallback)
 			mouseButtonCallback(KD_ACTION_UP, 2);
 		break;
+	case WM_MOUSEWHEEL:
+	{
+		int delta = GET_WHEEL_DELTA_WPARAM(wparam);
+		if (mouseWheelCallback)
+			mouseWheelCallback(delta);
+		break;
+	}
 	}
 
 	return DefWindowProcA(hwnd, message, wparam, lparam);

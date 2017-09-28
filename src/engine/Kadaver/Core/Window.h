@@ -42,6 +42,10 @@ public:
 	{
 		mouseMoveCallback = cb;
 	}
+	static void setMouseWheelCallback(void(*cb)(int delta))
+	{
+		mouseWheelCallback = cb;
+	}
 
 	static bool pollEvents();
 	
@@ -65,6 +69,7 @@ private:
 	static void(*keyCallback)(int action, int key);
 	static void(*mouseButtonCallback)(int action, int button);
 	static void(*mouseMoveCallback)(int x, int y);
+	static void(*mouseWheelCallback)(int delta);
 };
 
 KD_NAMESPACE_END
