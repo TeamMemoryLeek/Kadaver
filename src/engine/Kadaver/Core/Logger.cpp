@@ -27,7 +27,6 @@ void Logger::print(std::string message, uint level)
 	
 	// Set console color
 #ifdef _WIN32
-	// TODO: Make this thread safe
 	CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
 	WORD consolePrevAttribs;
 	HANDLE consoleHandle;
