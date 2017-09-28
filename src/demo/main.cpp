@@ -8,28 +8,33 @@
 
 #include <iostream>
 
+void keyCallback(int action, int key)
+{
+	if (action == KD_KEYACTION_DOWN)
+	{
+		KD_LOGGER.log("Key pressed: " + std::to_string(key));
+	}
+	else
+	{
+		KD_LOGGER.log("Key released: " + std::to_string(key));
+	}
+}
 
 int main(int argc, char** argv)
 {
 	KD_UNUSED(argc);
 	KD_UNUSED(argv);
 
+	kd::Window::setKeyCallback(keyCallback);
+
 	try
 	{
 		kd::Engine engine;
 		kd::Window window(600, 400, "Demo");
-		kd::AudioSystem audioSystem(&window);
-		kd::AudioBuffer startUpAudio(&audioSystem);
-		startUpAudio.loadFromWave("data/audio/startup_sound.wav");
-		kd::AudioSource source(kd::Vector3(0.0f, 0.0f, 1.0f));
-		kd::AudioListener listener(kd::Vector3::zero, 0.f);
-
-		source.playBuffer(&startUpAudio);
 
 		while (kd::Window::pollEvents())
 		{
-			source.update();
-			listener.rotation_ = startUpAudio.getProgress() * 360.0f;
+			engine.update();
 		}
 	}
 	catch (const std::exception& err)

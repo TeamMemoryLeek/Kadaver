@@ -1,6 +1,7 @@
 #if !defined(__APPLE__)
 
 #include "Window.h"
+#include "Engine.h"
 
 #include <vector>
 
@@ -8,6 +9,8 @@
 
 
 KD_NAMESPACE_BEGIN
+
+void(*Window::keyCallback)(int action, int key) = nullptr;
 
 #if defined(_WIN32)
 
@@ -38,6 +41,7 @@ LRESULT CALLBACK Window::wndProc(HWND hwnd, UINT message, WPARAM wparam,
 	switch (message)
 	{
 	case WM_CLOSE:
+	{
 		// Remove handle from static list
 		auto w = std::find(window_handles.begin(), window_handles.end(), hwnd);
 		if (w == window_handles.end())
@@ -50,6 +54,14 @@ LRESULT CALLBACK Window::wndProc(HWND hwnd, UINT message, WPARAM wparam,
 		// Quit if all windows are closed
 		if (window_handles.empty())
 			PostQuitMessage(0);
+		break;
+	}
+	case WM_KEYDOWN:
+		keyCallback(KD_KEYACTION_DOWN, wparam);
+		break;
+	case WM_KEYUP:
+		keyCallback(KD_KEYACTION_UP, wparam);
+		break;
 	}
 
 	return DefWindowProcA(hwnd, message, wparam, lparam);

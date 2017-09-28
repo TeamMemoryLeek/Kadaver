@@ -10,6 +10,8 @@
 #include <X11/Xutil.h>
 #endif
 
+#define KD_KEYACTION_DOWN 0
+#define KD_KEYACTION_UP 1
 
 KD_NAMESPACE_BEGIN
 
@@ -26,10 +28,13 @@ public:
 	Window(int width, int height, const char* title);
 	~Window();
 
+	static void setKeyCallback(void(*kcb)(int action, int key))
+	{
+		keyCallback = kcb;
+	}
 	static bool pollEvents();
 	
 	void destroy();
-
 #if defined(_WIN32)
 	const HWND& getHWND() const { return hwnd_; }
 #endif
@@ -44,6 +49,9 @@ private:
 #elif defined(__APPLE__)
 	void* window_;
 #endif
+
+	// Input callback
+	static void(*keyCallback)(int action, int key);
 };
 
 KD_NAMESPACE_END
