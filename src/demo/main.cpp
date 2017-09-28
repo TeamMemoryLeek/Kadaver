@@ -21,7 +21,7 @@ int main(int argc, char** argv)
 		kd::AudioSystem audioSystem(&window);
 		kd::SoundBuffer startUpAudio(&audioSystem);
 		startUpAudio.loadFromWave("data/audio/startup_sound.wav");
-		kd::AudioSource source(kd::Vector3(-1.0f, 0.0f, 0.0f));
+		kd::AudioSource source(kd::Vector3(0.0f, 0.0f, 1.0f));
 		kd::AudioListener listener(kd::Vector3::zero, 0.f);
 
 		source.playBuffer(&startUpAudio);
