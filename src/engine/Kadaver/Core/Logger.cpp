@@ -14,8 +14,10 @@ Logger::Logger()
 {
 }
 
-void Logger::print(std::string message, uint level) const
+void Logger::print(std::string message, uint level)
 {
+	mutex_.lock();
+
 	// Set message prefix based on level
 	static const char* prefixes[3] = {
 		"", "WARNING: ", "ERROR: "
@@ -64,7 +66,7 @@ void Logger::print(std::string message, uint level) const
 void Logger::log(
 	const std::string& message,
 	uint flag /*= LOG_DEFAULT*/
-) const
+)
 {
 	if (traceFlags_ & flag)
 	{
@@ -75,7 +77,7 @@ void Logger::log(
 void Logger::logWarning(
 	const std::string& message,
 	uint flag /*= LOG_DEFAULT*/
-) const
+)
 {
 	if (warningFlags_ & flag)
 	{
@@ -86,7 +88,7 @@ void Logger::logWarning(
 void Logger::logError(
 	const std::string& message,
 	uint flag /*= LOG_DEFAULT*/
-) const
+)
 {
 	if (errorFlags_ & flag)
 	{

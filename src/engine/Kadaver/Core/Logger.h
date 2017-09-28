@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include <string>
+#include "Kadaver/Core/Threads/Mutex.h"
 
 KD_NAMESPACE_BEGIN
 
@@ -20,11 +21,11 @@ class KD_CORE_DLL Logger
 public:
 	Logger();
 private:
-	void print(std::string message, uint level) const;
+	void print(std::string message, uint level);
 public:
-	void log(const std::string& message, uint flag = LOG_DEFAULT) const;
-	void logWarning(const std::string& message, uint flag = LOG_DEFAULT) const;
-	void logError(const std::string& message, uint flag = LOG_DEFAULT) const;
+	void log(const std::string& message, uint flag = LOG_DEFAULT);
+	void logWarning(const std::string& message, uint flag = LOG_DEFAULT);
+	void logError(const std::string& message, uint flag = LOG_DEFAULT);
 
 	// Enables/disables the output from trace and warning
 	// log calls with the specified flag.
@@ -36,6 +37,8 @@ private:
 	uint traceFlags_;
 	uint warningFlags_;
 	uint errorFlags_;
+
+	Mutex mutex_;
 };
 
 KD_NAMESPACE_END

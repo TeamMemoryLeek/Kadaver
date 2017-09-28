@@ -5,7 +5,6 @@
 
 KD_NAMESPACE_BEGIN
 
-// TODO: Dynamic positioning
 class KD_CORE_DLL AudioListener
 {
 public:
