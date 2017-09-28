@@ -1,7 +1,7 @@
 #include <Kadaver/Core/Engine.h>
 #include <Kadaver/Core/Window.h>
 #include <Kadaver/Core/Audio/AudioSystem.h>
-#include <Kadaver/Core/Audio/SoundBuffer.h>
+#include <Kadaver/Core/Audio/AudioBuffer.h>
 #include <Kadaver/Core/Audio/AudioListener.h>
 #include <Kadaver/Core/Audio/AudioSource.h>
 #include <Kadaver/Core/Math/Vector3.h>
@@ -19,7 +19,7 @@ int main(int argc, char** argv)
 		kd::Engine engine;
 		kd::Window window(600, 400, "Demo");
 		kd::AudioSystem audioSystem(&window);
-		kd::SoundBuffer startUpAudio(&audioSystem);
+		kd::AudioBuffer startUpAudio(&audioSystem);
 		startUpAudio.loadFromWave("data/audio/startup_sound.wav");
 		kd::AudioSource source(kd::Vector3(0.0f, 0.0f, 1.0f));
 		kd::AudioListener listener(kd::Vector3::zero, 0.f);

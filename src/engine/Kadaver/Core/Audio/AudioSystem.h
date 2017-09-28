@@ -23,7 +23,7 @@ private:
 	IDirectSoundBuffer* primaryBuffer_;
 #endif
 
-	friend class SoundBuffer;
+	friend class AudioBuffer;
 };
 
 KD_NAMESPACE_END

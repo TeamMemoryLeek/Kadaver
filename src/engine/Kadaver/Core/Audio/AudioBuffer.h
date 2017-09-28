@@ -12,7 +12,7 @@ KD_NAMESPACE_BEGIN
 
 class AudioSystem;
 
-class KD_CORE_DLL SoundBuffer
+class KD_CORE_DLL AudioBuffer
 {
 public:
 	struct WaveHeaderType
@@ -32,8 +32,8 @@ public:
 		unsigned long dataSize;
 	};
 
-	SoundBuffer(AudioSystem* as);
-	~SoundBuffer();
+	AudioBuffer(AudioSystem* as);
+	~AudioBuffer();
 
 	void loadFromWave(const char* path);
 	// Sets the volume to a value between 0 and 1.

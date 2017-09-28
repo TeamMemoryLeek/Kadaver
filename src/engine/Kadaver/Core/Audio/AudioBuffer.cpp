@@ -1,11 +1,11 @@
-#include "SoundBuffer.h"
+#include "AudioBuffer.h"
 #include "AudioSystem.h"
 #include "Kadaver/Core/Math/Math.hpp"
 #include <stdio.h>
 
 KD_NAMESPACE_BEGIN
 
-SoundBuffer::SoundBuffer(AudioSystem* as)
+AudioBuffer::AudioBuffer(AudioSystem* as)
 	: audioSystem_(as)
 	, volume_(1.0f)
 #ifdef _WIN32
@@ -14,7 +14,7 @@ SoundBuffer::SoundBuffer(AudioSystem* as)
 {
 }
 
-SoundBuffer::~SoundBuffer()
+AudioBuffer::~AudioBuffer()
 {
 #ifdef _WIN32
 	// Release buffer
@@ -23,7 +23,7 @@ SoundBuffer::~SoundBuffer()
 #endif
 }
 
-void SoundBuffer::loadFromWave(const char* path)
+void AudioBuffer::loadFromWave(const char* path)
 {
 #ifdef _WIN32
 	if (buffer_)
@@ -175,7 +175,7 @@ void SoundBuffer::loadFromWave(const char* path)
 #endif
 }
 
-void SoundBuffer::setVolume(float volume)
+void AudioBuffer::setVolume(float volume)
 {	
 	volume = clamp(volume, 0.0f, 1.0f);
 
@@ -191,7 +191,7 @@ void SoundBuffer::setVolume(float volume)
 	volume_ = volume;
 }
 
-void SoundBuffer::setPosition(float position)
+void AudioBuffer::setPosition(float position)
 {
 #ifdef _WIN32
 	if (!buffer_)
@@ -203,7 +203,7 @@ void SoundBuffer::setPosition(float position)
 #endif
 }
 
-void SoundBuffer::setPan(float pan)
+void AudioBuffer::setPan(float pan)
 {
 	pan = clamp(pan, -1.0f, 1.0f);
 
@@ -216,7 +216,7 @@ void SoundBuffer::setPan(float pan)
 #endif
 }
 
-void kd::SoundBuffer::setFrequency(float freq)
+void kd::AudioBuffer::setFrequency(float freq)
 {
 	freq = FLOAT_S(originalFrequency_) * (freq + 0.01f);
 #ifdef _WIN32
@@ -229,7 +229,7 @@ void kd::SoundBuffer::setFrequency(float freq)
 #endif
 }
 
-void SoundBuffer::play()
+void AudioBuffer::play()
 {
 #ifdef _WIN32
 	if (!buffer_)
@@ -240,7 +240,7 @@ void SoundBuffer::play()
 #endif
 }
 
-void kd::SoundBuffer::stop()
+void kd::AudioBuffer::stop()
 {
 #ifdef _WIN32
 	if (!buffer_)
@@ -251,7 +251,7 @@ void kd::SoundBuffer::stop()
 #endif
 }
 
-float kd::SoundBuffer::getProgress() const
+float kd::AudioBuffer::getProgress() const
 {
 #ifdef _WIN32
 	if (!buffer_)
@@ -266,7 +266,7 @@ float kd::SoundBuffer::getProgress() const
 #endif
 }
 
-bool kd::SoundBuffer::isPlaying() const
+bool kd::AudioBuffer::isPlaying() const
 {
 	float progress = getProgress();
 	if (progress != 0.0f && progress != 1.0f)

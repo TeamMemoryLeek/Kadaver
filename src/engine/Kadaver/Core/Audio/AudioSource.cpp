@@ -10,13 +10,13 @@ AudioSource::AudioSource(const Vector3& position /*= Vector3::zero*/)
 	memset(buffers_, 0, sizeof(buffers_));
 }
 
-void kd::AudioSource::addBuffer(SoundBuffer* buffer)
+void kd::AudioSource::addBuffer(AudioBuffer* buffer)
 {
 	assert(numBuffers_ < MAX_NUM_BUFFERS);
 	buffers_[numBuffers_++] = buffer;;
 }
 
-void kd::AudioSource::removeBuffer(SoundBuffer* buffer)
+void kd::AudioSource::removeBuffer(AudioBuffer* buffer)
 {
 	for (uint i = 0; i < numBuffers_; i++)
 	{
@@ -35,10 +35,10 @@ void kd::AudioSource::removeBuffer(SoundBuffer* buffer)
 	}
 }
 
-void kd::AudioSource::playBuffer(SoundBuffer* buffer)
+void kd::AudioSource::playBuffer(AudioBuffer* buffer)
 {
 	bool inArray = false;
-	for (SoundBuffer* b : buffers_)
+	for (AudioBuffer* b : buffers_)
 	{
 		if (b && b == buffer)
 			inArray = true;
@@ -57,7 +57,7 @@ void kd::AudioSource::update()
 	if (!listener)
 		return;
 
-	for (SoundBuffer* buffer : buffers_)
+	for (AudioBuffer* buffer : buffers_)
 	{
 		if(!buffer)
 			continue;
