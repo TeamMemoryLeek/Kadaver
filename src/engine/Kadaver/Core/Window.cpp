@@ -11,6 +11,7 @@
 KD_NAMESPACE_BEGIN
 
 void(*Window::keyCallback)(int action, int key) = nullptr;
+void(*Window::mouseMoveCallback)(int x, int y) = nullptr;
 
 #if defined(_WIN32)
 
@@ -57,10 +58,19 @@ LRESULT CALLBACK Window::wndProc(HWND hwnd, UINT message, WPARAM wparam,
 		break;
 	}
 	case WM_KEYDOWN:
-		keyCallback(KD_KEYACTION_DOWN, wparam);
+		if (keyCallback)
+			keyCallback(KD_KEYACTION_DOWN, INT_S(wparam));
 		break;
 	case WM_KEYUP:
-		keyCallback(KD_KEYACTION_UP, wparam);
+		if(keyCallback)
+			keyCallback(KD_KEYACTION_UP, INT_S(wparam));
+		break;
+	case WM_MOUSEMOVE:
+		int x = GET_X_LPARAM(lparam);
+		int y = GET_Y_LPARAM(lparam);
+
+		if(mouseMoveCallback)
+			mouseMoveCallback(x, y);
 		break;
 	}
 

@@ -3,6 +3,7 @@
 
 #if defined(_WIN32)
 #include <Windows.h>
+#include <windowsx.h>
 #include <vector>
 #elif defined(__linux__)
 #include <X11/Xlib.h>
@@ -28,10 +29,16 @@ public:
 	Window(int width, int height, const char* title);
 	~Window();
 
-	static void setKeyCallback(void(*kcb)(int action, int key))
+	// Input callback setters
+	static void setKeyCallback(void(*cb)(int action, int key))
 	{
-		keyCallback = kcb;
+		keyCallback = cb;
 	}
+	static void setMouseMoveCallback(void(*cb)(int x, int y))
+	{
+		mouseMoveCallback = cb;
+	}
+
 	static bool pollEvents();
 	
 	void destroy();
@@ -52,6 +59,7 @@ private:
 
 	// Input callback
 	static void(*keyCallback)(int action, int key);
+	static void(*mouseMoveCallback)(int x, int y);
 };
 
 KD_NAMESPACE_END

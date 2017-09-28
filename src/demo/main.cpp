@@ -20,12 +20,18 @@ void keyCallback(int action, int key)
 	}
 }
 
+void mouseMoveCallback(int x, int y)
+{
+	KD_LOGGER.log("x: " + std::to_string(x) + " y: " + std::to_string(y));
+}
+
 int main(int argc, char** argv)
 {
 	KD_UNUSED(argc);
 	KD_UNUSED(argv);
 
 	kd::Window::setKeyCallback(keyCallback);
+	kd::Window::setMouseMoveCallback(mouseMoveCallback);
 
 	try
 	{
