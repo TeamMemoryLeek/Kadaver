@@ -7,4 +7,4 @@
 - Run the bash script "premake.sh". (Generates the project files)
 - Open the newly generated project files with the corresponding IDE.
 - Build the project.
-- Done!
+- Done! 
