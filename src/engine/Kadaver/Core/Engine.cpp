@@ -19,6 +19,11 @@ Engine::~Engine()
 	engine_ = nullptr;
 }
 
+void kd::Engine::update()
+{
+	clock.update();
+}
+
 Engine& Engine::get()
 {
 	assert(engine_ && "Engine not created!");

@@ -1,9 +1,11 @@
 #pragma once
 #include "Core.h"
 #include "Logger.h"
+#include "Clock.h"
 
 #define KD_ENGINE kd::Engine::get()
 #define KD_LOGGER KD_ENGINE.logger
+#define KD_CLOCK KD_ENGINE.clock
 
 KD_NAMESPACE_BEGIN
 
@@ -13,7 +15,10 @@ public:
 	Engine();
 	~Engine();
 
+	void update();
+
 	Logger logger;
+	Clock clock;
 
 	static Engine& get();
 private:
