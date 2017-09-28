@@ -6,6 +6,7 @@ KD_NAMESPACE_BEGIN
 
 AudioSource::AudioSource(const Vector3& position /*= Vector3::zero*/)
 	: position_(position)
+	, numBuffers_(0)
 {
 	memset(buffers_, 0, sizeof(buffers_));
 }
