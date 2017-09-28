@@ -11,8 +11,8 @@
 #include <X11/Xutil.h>
 #endif
 
-#define KD_KEYACTION_DOWN 0
-#define KD_KEYACTION_UP 1
+#define KD_ACTION_DOWN 0
+#define KD_ACTION_UP 1
 
 KD_NAMESPACE_BEGIN
 
@@ -33,6 +33,10 @@ public:
 	static void setKeyCallback(void(*cb)(int action, int key))
 	{
 		keyCallback = cb;
+	}
+	static void setMouseButtonCallback(void(*cb)(int action, int button))
+	{
+		mouseButtonCallback = cb;
 	}
 	static void setMouseMoveCallback(void(*cb)(int x, int y))
 	{
@@ -59,6 +63,7 @@ private:
 
 	// Input callback
 	static void(*keyCallback)(int action, int key);
+	static void(*mouseButtonCallback)(int action, int button);
 	static void(*mouseMoveCallback)(int x, int y);
 };
 

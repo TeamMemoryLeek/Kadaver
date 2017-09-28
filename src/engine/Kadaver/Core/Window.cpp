@@ -11,6 +11,7 @@
 KD_NAMESPACE_BEGIN
 
 void(*Window::keyCallback)(int action, int key) = nullptr;
+void(*Window::mouseButtonCallback)(int action, int button) = nullptr;
 void(*Window::mouseMoveCallback)(int x, int y) = nullptr;
 
 #if defined(_WIN32)
@@ -59,18 +60,44 @@ LRESULT CALLBACK Window::wndProc(HWND hwnd, UINT message, WPARAM wparam,
 	}
 	case WM_KEYDOWN:
 		if (keyCallback)
-			keyCallback(KD_KEYACTION_DOWN, INT_S(wparam));
+			keyCallback(KD_ACTION_DOWN, INT_S(wparam));
 		break;
 	case WM_KEYUP:
 		if(keyCallback)
-			keyCallback(KD_KEYACTION_UP, INT_S(wparam));
+			keyCallback(KD_ACTION_UP, INT_S(wparam));
 		break;
 	case WM_MOUSEMOVE:
+	{
 		int x = GET_X_LPARAM(lparam);
 		int y = GET_Y_LPARAM(lparam);
 
-		if(mouseMoveCallback)
+		if (mouseMoveCallback)
 			mouseMoveCallback(x, y);
+		break;
+	}
+	case WM_LBUTTONDOWN:
+		if (mouseButtonCallback)
+			mouseButtonCallback(KD_ACTION_DOWN, 0);
+		break;
+	case WM_LBUTTONUP:
+		if (mouseButtonCallback)
+			mouseButtonCallback(KD_ACTION_UP, 0);
+		break;
+	case WM_RBUTTONDOWN:
+		if (mouseButtonCallback)
+			mouseButtonCallback(KD_ACTION_DOWN, 1);
+		break;
+	case WM_RBUTTONUP:
+		if (mouseButtonCallback)
+			mouseButtonCallback(KD_ACTION_UP, 1);
+		break;
+	case WM_MBUTTONDOWN:
+		if (mouseButtonCallback)
+			mouseButtonCallback(KD_ACTION_DOWN, 2);
+		break;
+	case WM_MBUTTONUP:
+		if (mouseButtonCallback)
+			mouseButtonCallback(KD_ACTION_UP, 2);
 		break;
 	}
 

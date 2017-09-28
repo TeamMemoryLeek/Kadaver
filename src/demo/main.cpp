@@ -10,7 +10,7 @@
 
 void keyCallback(int action, int key)
 {
-	if (action == KD_KEYACTION_DOWN)
+	if (action == KD_ACTION_DOWN)
 	{
 		KD_LOGGER.log("Key pressed: " + std::to_string(key));
 	}
@@ -25,6 +25,18 @@ void mouseMoveCallback(int x, int y)
 	KD_LOGGER.log("x: " + std::to_string(x) + " y: " + std::to_string(y));
 }
 
+void mouseButtonCallback(int action, int button)
+{
+	if(action == KD_ACTION_DOWN)
+	{
+		KD_LOGGER.log("Button clicked: " + std::to_string(button));
+	}
+	else
+	{
+		KD_LOGGER.log("Button released: " + std::to_string(button));
+	}
+}
+
 int main(int argc, char** argv)
 {
 	KD_UNUSED(argc);
@@ -32,6 +44,7 @@ int main(int argc, char** argv)
 
 	kd::Window::setKeyCallback(keyCallback);
 	kd::Window::setMouseMoveCallback(mouseMoveCallback);
+	kd::Window::setMouseButtonCallback(mouseButtonCallback);
 
 	try
 	{
