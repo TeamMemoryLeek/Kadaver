@@ -1,6 +1,7 @@
 #include "AudioSource.h"
 #include "AudioListener.h"
 #include <assert.h>
+#include <cstring>
 
 KD_NAMESPACE_BEGIN
 
