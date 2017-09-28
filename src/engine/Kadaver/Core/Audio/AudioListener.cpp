@@ -9,9 +9,11 @@ AudioListener::AudioListener(const Vector3& position /*= Vector3::zero*/,
 	: position_(position)
 	, rotation_(rotation)
 {
+	if (!activeListener_)
+		activeListener_ = this;
 }
 
-void kd::AudioListener::playFromSource(SoundBuffer* buffer, Vector3 source)
+void kd::AudioListener::applyListener(SoundBuffer* buffer, Vector3 source)
 {
 	// Calculate distance
 	// TODO: Do this with squared length
@@ -30,7 +32,6 @@ void kd::AudioListener::playFromSource(SoundBuffer* buffer, Vector3 source)
 
 	buffer->setVolume(volume);
 	buffer->setPan(pan * 0.4f);
-	buffer->play();
 }
 
 KD_NAMESPACE_END

@@ -11,17 +11,11 @@ class KD_CORE_DLL AudioListener
 public:
 	AudioListener(const Vector3& position = Vector3::zero, 
 		const float& rotation = 0.f);
-	void playFromSource(SoundBuffer* buffer, Vector3 source);
+	void applyListener(SoundBuffer* buffer, Vector3 source);
 
 	Vector3 position_;
 	float rotation_;
 
-	void setActiveListener(AudioListener* listener)
-	{
-		activeListener_ = listener;
-	}
-
-private:
 	static AudioListener* activeListener_;
 };
 
