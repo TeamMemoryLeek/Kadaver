@@ -13,7 +13,7 @@ AudioListener::AudioListener(const Vector3& position /*= Vector3::zero*/,
 		activeListener_ = this;
 }
 
-void kd::AudioListener::applyListener(SoundBuffer* buffer, Vector3 source)
+void kd::AudioListener::apply(SoundBuffer* buffer, Vector3 source)
 {
 	// Calculate distance
 	// TODO: Do this with squared length

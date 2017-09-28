@@ -61,7 +61,7 @@ void kd::AudioSource::update()
 	{
 		if(!buffer)
 			continue;
-		listener->applyListener(buffer, position_);
+		listener->apply(buffer, position_);
 	}
 }
 
