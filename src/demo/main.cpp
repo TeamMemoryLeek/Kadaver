@@ -77,7 +77,7 @@ int main(int argc, char** argv)
 			}
 		}
 	}
-	catch (const std::exception& err)
+	catch (const kd::Exception& err)
 	{
 		std::cerr << err.what();
 		std::cin.get();

@@ -43,25 +43,25 @@ void AudioBuffer::loadFromWave(const char* path)
 	// Open the wave file in binary
 	error = fopen_s(&file, path, "rb");
 	if (error)
-		throw std::exception("Couldn't open .wav file");
+		throw Exception("Couldn't open .wav file");
 
 	// Read in the wave file header
 	count = fread(&waveFileHeader, sizeof(waveFileHeader), 1, file);
 	if(count != 1)
-		throw std::exception();
+		throw Exception();
 
 	// Check that the chunk ID is the RIFF format
 	if (waveFileHeader.chunkID[0] != 'R' || waveFileHeader.chunkID[1] != 'I' ||
 		waveFileHeader.chunkID[2] != 'F' || waveFileHeader.chunkID[3] != 'F')
 	{
-		throw std::exception();
+		throw Exception();
 	}
 
 	// Check format
 	if (waveFileHeader.format[0] != 'W' || waveFileHeader.format[1] != 'A' ||
 		waveFileHeader.format[2] != 'V' || waveFileHeader.format[3] != 'E')
 	{
-		throw std::exception();
+		throw Exception();
 	}
 
 	// Check that the sub chunk ID is the FMT format
@@ -70,24 +70,24 @@ void AudioBuffer::loadFromWave(const char* path)
 		waveFileHeader.subChunkID[2] != 't' || 
 		waveFileHeader.subChunkID[3] != 32)
 	{
-		throw std::exception();
+		throw Exception();
 	}
 
 	// Check that the audio format is WAVE_FORMAT_PCM
 	if(waveFileHeader.audioFormat != WAVE_FORMAT_PCM)
-		throw std::exception();
+		throw Exception();
 
 	// Check that the wave file was recorded in stereo
 	if (waveFileHeader.numChannels != 2)
-		throw std::exception();
+		throw Exception();
 
 	// Check that the wave file was recorded in 44.1KHz
 	if(waveFileHeader.sampleRate != 44100)
-		throw std::exception();
+		throw Exception();
 
 	// Check if 16 bit format
 	if (waveFileHeader.bitsPerSample != 16)
-		throw std::exception();
+		throw Exception();
 
 	// Check for the data chunk header
 	if (waveFileHeader.dataChunkID[0] != 'd' ||
@@ -95,7 +95,7 @@ void AudioBuffer::loadFromWave(const char* path)
 		waveFileHeader.dataChunkID[2] != 't' ||
 		waveFileHeader.dataChunkID[3] != 'a')
 	{
-		throw std::exception();
+		throw Exception();
 	}
 
 	// Set wave format of secondary buffer
@@ -123,11 +123,11 @@ void AudioBuffer::loadFromWave(const char* path)
 	// Create temp buffer
 	if (FAILED(audioSystem_->directSound_->CreateSoundBuffer(
 		&bufferDesc, &tempBuffer, 0)))
-		throw std::exception();
+		throw Exception();
 
 	if (FAILED(tempBuffer->QueryInterface(IID_IDirectSoundBuffer8,
 		(void**)&buffer_)))
-		throw std::exception();
+		throw Exception();
 
 	// Release temp buffer
 	tempBuffer->Release();
@@ -139,29 +139,29 @@ void AudioBuffer::loadFromWave(const char* path)
 	// Create temp buffer for wav data
 	waveData = new byte[waveFileHeader.dataSize];
 	if (!waveData)
-		throw std::exception();
+		throw Exception();
 
 	// Read the wave file into new buffer
 	count = fread(waveData, 1, waveFileHeader.dataSize, file);
 	if (count != waveFileHeader.dataSize)
-		throw std::exception();
+		throw Exception();
 
 	// Close file
 	error = fclose(file);
 	if(error)
-		throw std::exception();
+		throw Exception();
 
 	// Lock buffer
 	if (FAILED(buffer_->Lock(0, waveFileHeader.dataSize, (void**)&buffer,
 		(DWORD*)&bufferSize, 0, 0, 0)))
-		throw std::exception();
+		throw Exception();
 
 	// Copy data into buffer
 	memcpy(buffer, waveData, waveFileHeader.dataSize);
 
 	// Unlock buffer
 	if (FAILED(buffer_->Unlock((void*)buffer, bufferSize, 0, 0)))
-		throw std::exception();
+		throw Exception();
 
 	// Release wave data
 	delete[] waveData;
@@ -171,7 +171,7 @@ void AudioBuffer::loadFromWave(const char* path)
 	
 	// Store original frequency
 	if (FAILED(buffer_->GetFrequency(&originalFrequency_)))
-		throw std::exception();
+		throw Exception();
 #endif
 }
 
@@ -185,7 +185,7 @@ void AudioBuffer::setVolume(float volume)
 
 	int vol = interpolate<int>(-7500, DSBVOLUME_MAX, volume);
 	if (FAILED(buffer_->SetVolume(vol)))
-		throw std::exception("Couldn't set volume");
+		throw Exception("Couldn't set volume");
 #endif
 
 	volume_ = volume;
@@ -199,7 +199,7 @@ void AudioBuffer::setPosition(float position)
 
 	int pos = interpolate<int>(0, dataSize_, position);
 	if (FAILED(buffer_->SetCurrentPosition(pos)))
-		throw std::exception("Couldn't set position");
+		throw Exception("Couldn't set position");
 #endif
 }
 
@@ -212,7 +212,7 @@ void AudioBuffer::setPan(float pan)
 		return;
 	int p = interpolate<int>(0, 5000, pan);
 	if (FAILED(buffer_->SetPan(p)))
-		throw std::exception("Couldn't set pan");
+		throw Exception("Couldn't set pan");
 #endif
 }
 
@@ -225,7 +225,7 @@ void kd::AudioBuffer::setFrequency(float freq)
 	freq = clamp(freq, FLOAT_S(DSBFREQUENCY_MIN), FLOAT_S(DSBFREQUENCY_MAX));
 
 	if (FAILED(buffer_->SetFrequency(UINT(freq))))
-		throw std::exception("Couldn't set frequency");
+		throw Exception("Couldn't set frequency");
 #endif
 }
 
@@ -236,7 +236,7 @@ void AudioBuffer::play()
 		return;
 
 	if (FAILED(buffer_->Play(0, 0, 0)))
-		throw std::exception("Couldn't play");
+		throw Exception("Couldn't play");
 #endif
 }
 
@@ -247,7 +247,7 @@ void kd::AudioBuffer::stop()
 		return;
 
 	if (FAILED(buffer_->Stop()))
-		throw std::exception("Couldn't stop");
+		throw Exception("Couldn't stop");
 #endif
 }
 

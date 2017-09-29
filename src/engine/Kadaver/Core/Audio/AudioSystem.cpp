@@ -15,7 +15,7 @@ AudioSystem::AudioSystem(Window* window)
 	
 	result = initializeDirectSound(window->getHWND());
 	if (!result)
-		throw std::exception("Couldn't initialize DirectSound!");
+		throw Exception("Couldn't initialize DirectSound!");
 #elif defined(__linux__)
 	KD_UNUSED(window);
 	
@@ -23,7 +23,7 @@ AudioSystem::AudioSystem(Window* window)
 	if(!result)
 	{
 		printf("Couldn't initialize ALSA!");
-		throw std::exception();
+		throw Exception();
 	}
 #endif
 }

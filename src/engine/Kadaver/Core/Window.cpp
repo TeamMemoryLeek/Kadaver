@@ -48,7 +48,7 @@ LRESULT CALLBACK Window::wndProc(HWND hwnd, UINT message, WPARAM wparam,
 		// Remove handle from static list
 		auto w = std::find(windowHandles.begin(), windowHandles.end(), hwnd);
 		if (w == windowHandles.end())
-			throw std::exception("Attempted to destroy unregistered window");
+			throw Exception("Attempted to destroy unregistered window");
 		windowHandles.erase(w);
 
 		// Destroy window
@@ -135,7 +135,7 @@ Window::Window(int width, int height, const char* title)
 		width, height, nullptr, nullptr, GetModuleHandleA(nullptr), nullptr);
 	if (!hwnd_)
 	{
-		throw std::exception("CreateWindowEx failed");
+		throw Exception("CreateWindowEx failed");
 	}
 
 	ShowWindow(hwnd_, SW_SHOW);
