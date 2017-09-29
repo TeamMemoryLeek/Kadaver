@@ -56,10 +56,25 @@ int main(int argc, char** argv)
 	{
 		kd::Engine engine;
 		kd::Window window(600, 400, "Demo");
-
+		
+		float timer = 0.0f;
+		static const float intervals = 0.25f;
+		
 		while (kd::Window::pollEvents())
 		{
 			engine.update();
+			
+			timer += KD_CLOCK.deltaTime();
+			while(timer >= intervals)
+			{
+				timer -= intervals;
+				window.setTitle(
+					"Demo    | Time: " + 
+					std::to_string(UINT_S(KD_CLOCK.time())) +
+					" FPS: " +
+					std::to_string(UINT_S(1.0f / KD_CLOCK.deltaTime()))
+				);
+			}
 		}
 	}
 	catch (const std::exception& err)
