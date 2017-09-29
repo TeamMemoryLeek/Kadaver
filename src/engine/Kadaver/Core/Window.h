@@ -47,6 +47,8 @@ public:
 		mouseWheelCallback = cb;
 	}
 
+	void setTitle(const std::string& title);
+
 	static bool pollEvents();
 	
 	void destroy();

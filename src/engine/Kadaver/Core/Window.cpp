@@ -182,6 +182,13 @@ Window::~Window()
 	destroy();
 }
 
+void kd::Window::setTitle(const std::string& title)
+{
+#ifdef _WIN32
+	SetWindowTextA(hwnd_, title.c_str());
+#endif
+}
+
 bool Window::pollEvents()
 {
 #if defined(_WIN32)
