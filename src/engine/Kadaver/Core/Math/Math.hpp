@@ -100,9 +100,9 @@ template<typename T = float>
 inline T saturate(const T& value)
 {
 	if (value < T_S(0.0f))
-		return min;
+		return T_S(0.0f);
 	if (value > T_S(1.0f))
-		return max;
+		return T_S(1.0f);
 	return value;
 }
 
