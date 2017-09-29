@@ -81,6 +81,7 @@ project "KadaverCore"
 		}
 		links {
 			"pthread",
+			"asound",
 		}
 
 	-- Per-system settings
@@ -167,6 +168,7 @@ project "Demo"
 		}
 		links {
 			"pthread",
+			"asound",
 		}
 
 	-- Per-system settings
