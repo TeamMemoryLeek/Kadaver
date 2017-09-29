@@ -184,8 +184,10 @@ Window::~Window()
 
 void kd::Window::setTitle(const std::string& title)
 {
-#ifdef _WIN32
+#if defined(_WIN32)
 	SetWindowTextA(hwnd_, title.c_str());
+#elif defined(__linux)
+	XStoreName(display_, window_, title.c_str());
 #endif
 }
 
