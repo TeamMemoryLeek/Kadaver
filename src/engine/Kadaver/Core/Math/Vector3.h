@@ -37,17 +37,17 @@ public:
 	static const Vector3 posz;
 	static const Vector3 negz;
 
-	const float length() const
+	float length() const
 	{
 		return sqrt(lengthSquared());
 	}
 
-	const float lengthSquared() const
+	float lengthSquared() const
 	{
 		return x * x + y * y + z * z;
 	}
 
-	const float normalize()
+	float normalize()
 	{
 		float magnitude;
 		*this = normalized(&magnitude);
@@ -72,7 +72,7 @@ public:
 		return out;
 	}
 
-	const float dot(const Vector3& other) const
+	float dot(const Vector3& other) const
 	{
 		return x * other.x + y * other.y + z * other.z;
 	}

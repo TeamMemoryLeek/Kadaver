@@ -11,11 +11,11 @@ public:
 	Clock();
 
 	void update();
-	const float deltaTime() const
+	float deltaTime() const
 	{
 		return FLOAT_S(deltaTime_);
 	}
-	const float time() const
+	float time() const
 	{
 		return FLOAT_S(time_);
 	}
