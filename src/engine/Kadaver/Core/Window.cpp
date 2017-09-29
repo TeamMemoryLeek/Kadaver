@@ -17,7 +17,7 @@ void(*Window::mouseWheelCallback)(int delta) = nullptr;
 
 #if defined(_WIN32)
 
-static std::vector<HWND> window_handles;
+static std::vector<HWND> windowHandles;
 
 ATOM Window::createWindowClass()
 {
@@ -46,16 +46,16 @@ LRESULT CALLBACK Window::wndProc(HWND hwnd, UINT message, WPARAM wparam,
 	case WM_CLOSE:
 	{
 		// Remove handle from static list
-		auto w = std::find(window_handles.begin(), window_handles.end(), hwnd);
-		if (w == window_handles.end())
+		auto w = std::find(windowHandles.begin(), windowHandles.end(), hwnd);
+		if (w == windowHandles.end())
 			throw std::exception("Attempted to destroy unregistered window");
-		window_handles.erase(w);
+		windowHandles.erase(w);
 
 		// Destroy window
 		DestroyWindow(hwnd);
 
 		// Quit if all windows are closed
-		if (window_handles.empty())
+		if (windowHandles.empty())
 			PostQuitMessage(0);
 		break;
 	}
@@ -121,17 +121,17 @@ static std::vector<Window*> windows;
 Window::Window(int width, int height, const char* title)
 {
 #if defined(_WIN32)
-	static ATOM window_class = createWindowClass();
-	DWORD style_ex, style;
+	static ATOM windowClass = createWindowClass();
+	DWORD styleEx, style;
 	int x, y;
 
 	// Configure window
-	style_ex = WS_EX_OVERLAPPEDWINDOW;
+	styleEx = WS_EX_OVERLAPPEDWINDOW;
 	style = WS_OVERLAPPEDWINDOW;
 	x = y = CW_USEDEFAULT;
 
 	// Create window
-	hwnd_ = CreateWindowExA(style_ex, WINDOW_CLASS_NAME, title, style, x, y,
+	hwnd_ = CreateWindowExA(styleEx, WINDOW_CLASS_NAME, title, style, x, y,
 		width, height, nullptr, nullptr, GetModuleHandleA(nullptr), nullptr);
 	if (!hwnd_)
 	{
@@ -141,27 +141,27 @@ Window::Window(int width, int height, const char* title)
 	ShowWindow(hwnd_, SW_SHOW);
 
 	// Add window handle to static list
-	window_handles.push_back(hwnd_);
+	windowHandles.push_back(hwnd_);
 	
 #elif defined(__linux__)
 	
-	XSetWindowAttributes window_attributes;
-	XID root_window;
+	XSetWindowAttributes windowAttributes;
+	XID rootWindow;
 	Visual* visual;
 	int depth;
 
 	// Open display
 	display_ = XOpenDisplay(nullptr);
-	root_window = DefaultRootWindow(display_);
+	rootWindow = DefaultRootWindow(display_);
 	visual = XDefaultVisual(display_, 0);
 	depth = XDefaultDepth(display_, 0);
 
 	// Window attributes
-	window_attributes.colormap = XCreateColormap(display_, root_window, visual, AllocNone);
-	window_attributes.event_mask = ExposureMask | KeyPressMask;
+	windowAttributes.colormap = XCreateColormap(display_, rootWindow, visual, AllocNone);
+	windowAttributes.event_mask = ExposureMask | KeyPressMask;
 
 	// Create window
-   	window_ = XCreateWindow(display_, root_window, 0, 0, width, height, 0, depth, InputOutput, visual, CWColormap | CWEventMask, &window_attributes);
+   	window_ = XCreateWindow(display_, rootWindow, 0, 0, width, height, 0, depth, InputOutput, visual, CWColormap | CWEventMask, &windowAttributes);
 	
 	// Message interception
 	deleteMessage_ = XInternAtom(display_, "WM_DELETE_WINDOW", False);
@@ -205,7 +205,7 @@ bool Window::pollEvents()
 	}
 
 	// Handle all window messages
-	for (HWND& hwnd : window_handles)
+	for (HWND& hwnd : windowHandles)
 	{
 		while (PeekMessageA(&msg, hwnd, 0, 0, PM_REMOVE))
 		{
