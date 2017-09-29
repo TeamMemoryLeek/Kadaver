@@ -2,8 +2,10 @@
 
 #include "../Window.h"
 
-#ifdef _WIN32
+#if defined(_WIN32)
 #include <dsound.h>
+#elif defined(__linux__)
+#include <alsa/asoundlib.h>
 #endif
 
 KD_NAMESPACE_BEGIN
@@ -16,11 +18,16 @@ public:
 
 
 private:
-#ifdef _WIN32
+#if defined(_WIN32)
 	bool initializeDirectSound(HWND hwnd);
 
 	IDirectSound8* directSound_;
 	IDirectSoundBuffer* primaryBuffer_;
+#elif defined(__linux__)
+	bool initializeALSA();
+
+	snd_pcm_t* device_;
+	snd_pcm_hw_params_t* params_;
 #endif
 
 	friend class AudioBuffer;
