@@ -25,17 +25,16 @@ AudioBuffer::~AudioBuffer()
 
 void AudioBuffer::loadFromWave(const char* path)
 {
-#ifdef _WIN32
+#if defined(_WIN32)
 	if (buffer_)
 		return;
+#endif
 
 	int error;
 	FILE* file;
 	size_t count;
 	WaveHeaderType waveFileHeader;
-	WAVEFORMATEX waveFormat;
-	DSBUFFERDESC bufferDesc;
-	IDirectSoundBuffer* tempBuffer;
+	
 	byte* waveData;
 	byte* buffer;
 	unsigned long bufferSize;
@@ -98,6 +97,30 @@ void AudioBuffer::loadFromWave(const char* path)
 		throw Exception();
 	}
 
+	// Move to beginning of wave data
+	fseek(file, sizeof(WaveHeaderType), SEEK_SET);
+
+	// Create temp buffer for wav data
+	waveData = new byte[waveFileHeader.dataSize];
+	if (!waveData)
+		throw Exception();
+
+	// Read the wave file into new buffer
+	count = fread(waveData, 1, waveFileHeader.dataSize, file);
+	if (count != waveFileHeader.dataSize)
+		throw Exception();
+
+	// Close file
+	error = fclose(file);
+	if (error)
+		throw Exception();
+
+#ifdef _WIN32
+
+	WAVEFORMATEX waveFormat;
+	DSBUFFERDESC bufferDesc;
+	IDirectSoundBuffer* tempBuffer;
+
 	// Set wave format of secondary buffer
 	waveFormat.wFormatTag = WAVE_FORMAT_PCM;
 	waveFormat.nSamplesPerSec = 44100;
@@ -133,24 +156,6 @@ void AudioBuffer::loadFromWave(const char* path)
 	tempBuffer->Release();
 	tempBuffer = 0;
 
-	// Move to beginning of wave data
-	fseek(file, sizeof(WaveHeaderType), SEEK_SET);
-
-	// Create temp buffer for wav data
-	waveData = new byte[waveFileHeader.dataSize];
-	if (!waveData)
-		throw Exception();
-
-	// Read the wave file into new buffer
-	count = fread(waveData, 1, waveFileHeader.dataSize, file);
-	if (count != waveFileHeader.dataSize)
-		throw Exception();
-
-	// Close file
-	error = fclose(file);
-	if(error)
-		throw Exception();
-
 	// Lock buffer
 	if (FAILED(buffer_->Lock(0, waveFileHeader.dataSize, (void**)&buffer,
 		(DWORD*)&bufferSize, 0, 0, 0)))
@@ -162,17 +167,17 @@ void AudioBuffer::loadFromWave(const char* path)
 	// Unlock buffer
 	if (FAILED(buffer_->Unlock((void*)buffer, bufferSize, 0, 0)))
 		throw Exception();
+	
+	// Store original frequency
+	if (FAILED(buffer_->GetFrequency(&originalFrequency_)))
+		throw Exception();
+#endif
 
 	// Release wave data
 	delete[] waveData;
 
 	// Store data size
 	dataSize_ = waveFileHeader.dataSize;
-	
-	// Store original frequency
-	if (FAILED(buffer_->GetFrequency(&originalFrequency_)))
-		throw Exception();
-#endif
 }
 
 void AudioBuffer::setVolume(float volume)
