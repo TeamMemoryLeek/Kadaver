@@ -1,6 +1,6 @@
 #include "AudioBuffer.h"
 #include "AudioSystem.h"
-#include "Kadaver/Core/Math/Math.hpp"
+#include "Kadaver/Core/Math/Math.h"
 #include <stdio.h>
 
 KD_NAMESPACE_BEGIN

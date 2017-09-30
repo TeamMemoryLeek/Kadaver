@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Kadaver/Core/Core.h"
-#include "Math.hpp"
+#include "Math.h"
 
 KD_NAMESPACE_BEGIN
 

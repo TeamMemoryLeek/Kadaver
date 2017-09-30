@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Types.h"
-#include "Exception.hpp"
+#include "Exception.h"
 
 // Platform macros
 #if defined(_WIN32)
