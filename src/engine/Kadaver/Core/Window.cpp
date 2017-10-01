@@ -140,6 +140,8 @@ Window::Window(int width, int height, const char* title)
 
 	// Create device and render context
 	hdc_ = GetDC(hwnd_);
+	renderContext_.initFromWindow(this);
+
 	ShowWindow(hwnd_, SW_SHOW);
 
 	// Add window handle to static list

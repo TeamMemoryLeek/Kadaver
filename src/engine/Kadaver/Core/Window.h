@@ -53,12 +53,15 @@ public:
 	static bool pollEvents();
 	
 	void destroy();
+
+	const RenderContext& getRenderContext() const { return renderContext_; }
 #if defined(_WIN32)
 	const HWND& getHWND() const { return hwnd_; }
 	const HDC& getHDC() const { return hdc_; }
 #endif
 
 private:
+	RenderContext renderContext_;
 #if defined(_WIN32)
 	HWND hwnd_;
 	HDC hdc_;
