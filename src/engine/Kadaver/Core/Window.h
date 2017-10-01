@@ -1,5 +1,6 @@
 #pragma once
 #include "Core.h"
+#include "Kadaver/Core/RenderContext.h"
 #include <string>
 
 #if defined(_WIN32)
