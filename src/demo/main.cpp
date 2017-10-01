@@ -5,6 +5,10 @@
 #include <Kadaver/Core/Audio/AudioListener.h>
 #include <Kadaver/Core/Audio/AudioSource.h>
 
+#if defined(_WIN32)
+#include <gl/GL.h>
+#endif
+
 #include <iostream>
 
 void mouseWheelCallback(int delta)
@@ -45,6 +49,16 @@ int main(int argc, char** argv)
 					std::to_string(UINT_S(1.0f / KD_CLOCK.deltaTime()))
 				);
 			}
+
+			window.swapBuffers();
+
+#if defined(_WIN32)
+			glBegin(GL_TRIANGLES);
+			glVertex2f(-0.5f, -0.5f);
+			glVertex2f(0.0f, 0.5f);
+			glVertex2f(0.5f, -0.5f);
+			glEnd();
+#endif
 
 			engine.update();
 		}
