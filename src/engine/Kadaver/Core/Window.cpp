@@ -145,6 +145,8 @@ Window::Window(int width, int height, const char* title)
 	renderContext_.initFromWindow(this);
 
 	ShowWindow(hwnd_, SW_SHOW);
+	SetForegroundWindow(hwnd_);
+	SetFocus(hwnd_);
 
 	// Add window handle to static list
 	windowHandles.push_back(hwnd_);
