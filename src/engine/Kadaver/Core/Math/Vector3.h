@@ -12,8 +12,10 @@ public:
 	Vector3(const float& x = 0.f, const float& y = 0.f, const float& z = 0.f);
 	Vector3(const Vector3& other);
 
+#ifdef _WIN32
 #pragma warning(push)
 #pragma warning(disable : 4201)
+#endif
 	union
 	{
 		struct 
@@ -23,7 +25,9 @@ public:
 			float z;
 		};
 	};
+#ifdef _WIN32
 #pragma warning(pop)
+#endif
 
 	// Static instances
 	static const Vector3 zero;
