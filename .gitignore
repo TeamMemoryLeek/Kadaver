@@ -3,6 +3,10 @@ build/
 tmp/
 bin/*
 !bin/*/
+src/bin/x64/
+src/bin/x86/
+src/bin/ARM/
+src/obj/
 
 # Visual Studio
 src/.vs/
