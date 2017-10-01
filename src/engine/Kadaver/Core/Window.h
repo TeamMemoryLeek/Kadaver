@@ -52,6 +52,7 @@ public:
 
 	static bool pollEvents();
 	
+	void swapBuffers();
 	void destroy();
 
 	const RenderContext& getRenderContext() const { return renderContext_; }

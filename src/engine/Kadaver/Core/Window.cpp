@@ -248,6 +248,15 @@ bool Window::pollEvents()
 	return true;
 }
 
+void Window::swapBuffers()
+{
+#if defined(_WIN32)
+	SwapBuffers(hdc_);
+#endif
+
+	renderContext_.clear();
+}
+
 void Window::destroy()
 {
 #if defined(_WIN32)
