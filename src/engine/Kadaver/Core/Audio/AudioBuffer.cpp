@@ -3,6 +3,10 @@
 #include "Kadaver/Core/Math/Math.h"
 #include <stdio.h>
 
+#ifndef _WIN32
+#define WAVE_FORMAT_PCM 1
+#endif
+
 KD_NAMESPACE_BEGIN
 
 AudioBuffer::AudioBuffer(AudioSystem* as)
