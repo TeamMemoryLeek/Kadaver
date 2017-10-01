@@ -40,8 +40,8 @@ void AudioBuffer::loadFromWave(const char* path)
 	unsigned long bufferSize;
 
 	// Open the wave file in binary
-	error = fopen_s(&file, path, "rb");
-	if (error)
+	file = fopen(path, "rb");
+	if (!file)
 		throw Exception("Couldn't open .wav file");
 
 	// Read in the wave file header
