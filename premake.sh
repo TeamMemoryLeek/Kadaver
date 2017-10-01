@@ -27,7 +27,7 @@ fi
 
 # Windows
 if [ "$os" == "windows" ]; then
-	bin/premake5 "--file=src/premake/main.lua" "vs2017"
+	bin/premake5 "--file=src/premake/main.lua" "vs2017" "remote=linux"
 
 # Linux
 elif [ "$os" == "linux" ]; then
