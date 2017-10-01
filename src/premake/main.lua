@@ -147,7 +147,6 @@ project "Demo"
 	dependson "KadaverCore"
 	kind "ConsoleApp"
 	location ".."
-	debugdir "$(OutDir)"
 	
 	files {
 		"../demo/**.h",
@@ -214,6 +213,7 @@ project "Demo"
 	-- Remote linux settings
 
 	if (_LINUX_REMOTE) then
+		debugdir "$(RemoteProjectDir)"
 		objdir "$(ProjectDir)build"
 		remoteprojectrootdir("$(RemoteRootDir)/$(ProjectName)")
 		targetdir "$(ProjectDir)bin/$(Platform)/$(Configuration)"
@@ -230,6 +230,7 @@ project "Demo"
 			"RelativeLinks",
 		}
 	else
+		debugdir "$(OutDir)"
 		objdir "../../build"
 		targetdir "../../bin"
 		libdirs {
