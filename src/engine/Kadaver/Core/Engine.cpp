@@ -22,6 +22,7 @@ Engine::~Engine()
 void kd::Engine::update()
 {
 	clock.update();
+	inputSystem.update();
 }
 
 Engine& Engine::get()
