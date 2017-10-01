@@ -10,14 +10,21 @@ workspace "Kadaver"
 		"Release",
 	}
 
-	-- Per-action settings
-
-	filter {"action:vs*"}
+	if (_LINUX_REMOTE) then
+		toolset "gcc"
+		system "linux"
+		platforms {
+			"x86",
+			"x64",
+			"ARM",
+		}
+	elseif (_ACTION_VS) then
 		toolset "msc"
 		platforms {
 			"Win32",
 			"x64",
 		}
+	end
 
 	-- Per-configuration settings
 
@@ -77,6 +84,7 @@ project "KadaverCore"
 
 	filter {"toolset:clang or gcc"}
 		buildoptions {
+			"-fPIC",
 			"-g",
 		}
 		links {
@@ -85,6 +93,11 @@ project "KadaverCore"
 		}
 
 	-- Per-system settings
+
+	filter {"system:linux"}
+		links {
+			"X11",
+		}
 
 	filter {"system:macosx"}
 		files {
@@ -114,14 +127,26 @@ project "KadaverCore"
 		rtti "Off"
 		warnings "Extra"
 
+	-- Remote linux settings
+
+	if (_LINUX_REMOTE) then
+		objdir "../build"
+		remoteprojectrootdir("$(RemoteRootDir)/$(ProjectName)/Kadaver/Core/")
+		targetdir "../bin"
+		buildoptions {
+			"-I $(RemoteRootDir)/KadaverCore",
+		}
+	else
+		objdir "../../build"
+		targetdir "../../bin"
+	end
+
 -- Demo application
 
 project "Demo"
 	dependson "KadaverCore"
 	kind "ConsoleApp"
 	location ".."
-	targetdir "../../bin"
-	objdir "../../build"
 	debugdir "$(OutDir)"
 	
 	files {
@@ -132,12 +157,6 @@ project "Demo"
 	includedirs {
 		"../demo",
 		"../engine",
-	}
-	libdirs {
-		"../../bin",
-	}
-	links {
-		"KadaverCore",
 	}
 
 	-- Per-action settings
@@ -191,3 +210,32 @@ project "Demo"
 	filter {}
 		rtti "Off"
 		warnings "Extra"
+
+	-- Remote linux settings
+
+	if (_LINUX_REMOTE) then
+		objdir "$(ProjectDir)build"
+		remoteprojectrootdir("$(RemoteRootDir)/$(ProjectName)")
+		targetdir "$(ProjectDir)bin/$(Platform)/$(Configuration)"
+		targetextension ".out"
+		absolutelinks {
+			"$(RemoteRootDir)/KadaverCore/Kadaver/Core/bin/libKadaverCore.so",
+		}
+		buildoptions {
+			"-Wl,-rpath=.",
+			"-I $(RemoteRootDir)/Demo",
+			"-I $(RemoteRootDir)/KadaverCore",
+		}
+		flags {
+			"RelativeLinks",
+		}
+	else
+		objdir "../../build"
+		targetdir "../../bin"
+		libdirs {
+			"../../bin",
+		}
+		links {
+			"KadaverCore",
+		}
+	end
