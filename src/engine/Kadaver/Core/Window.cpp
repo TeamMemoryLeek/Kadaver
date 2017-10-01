@@ -119,6 +119,8 @@ static std::vector<Window*> windows;
 #endif
 
 Window::Window(int width, int height, const char* title)
+	: width_(width)
+	, height_(height)
 {
 #if defined(_WIN32)
 	static ATOM windowClass = createWindowClass();

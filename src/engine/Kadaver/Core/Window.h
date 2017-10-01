@@ -57,6 +57,9 @@ public:
 	void destroy();
 
 	const RenderContext& getRenderContext() const { return renderContext_; }
+	int getWidth() const { return width_; }
+	int getHeight() const { return height_; }
+
 #if defined(_WIN32)
 	const HWND& getHWND() const { return hwnd_; }
 	const HDC& getHDC() const { return hdc_; }
@@ -64,6 +67,8 @@ public:
 
 private:
 	RenderContext renderContext_;
+	int width_, height_;
+
 #if defined(_WIN32)
 	HWND hwnd_;
 	HDC hdc_;
