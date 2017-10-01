@@ -138,6 +138,8 @@ Window::Window(int width, int height, const char* title)
 		throw Exception("CreateWindowEx failed");
 	}
 
+	// Create device and render context
+	hdc_ = GetDC(hwnd_);
 	ShowWindow(hwnd_, SW_SHOW);
 
 	// Add window handle to static list
@@ -247,6 +249,7 @@ bool Window::pollEvents()
 void Window::destroy()
 {
 #if defined(_WIN32)
+	ReleaseDC(hwnd_, hdc_);
 	DestroyWindow(hwnd_);
 	hwnd_ = nullptr;
 #elif defined(__linux__)

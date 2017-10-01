@@ -55,11 +55,13 @@ public:
 	void destroy();
 #if defined(_WIN32)
 	const HWND& getHWND() const { return hwnd_; }
+	const HDC& getHDC() const { return hdc_; }
 #endif
 
 private:
 #if defined(_WIN32)
 	HWND hwnd_;
+	HDC hdc_;
 #elif defined(__linux__)
 	_XDisplay* display_;
 	XID window_;
