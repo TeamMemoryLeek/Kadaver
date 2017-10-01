@@ -86,6 +86,11 @@ project "KadaverCore"
 
 	-- Per-system settings
 
+	filter {"system:windows"}
+		links {
+			"opengl32",
+		}
+
 	filter {"system:macosx"}
 		files {
 			"../engine/Kadaver/Core/**.m",
@@ -172,6 +177,11 @@ project "Demo"
 		}
 
 	-- Per-system settings
+
+	filter {"system:windows"}
+		links {
+			"opengl32",
+		}
 
 	filter {"system:linux"}
 		links {
