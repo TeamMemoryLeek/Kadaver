@@ -94,6 +94,7 @@ project "KadaverCore"
 	filter {"system:linux"}
 		links {
 			"GL",
+			"X11",
 		}
 
 	filter {"system:macosx"}
