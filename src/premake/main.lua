@@ -81,7 +81,6 @@ project "KadaverCore"
 		}
 		links {
 			"pthread",
-			"asound",
 		}
 
 	-- Per-system settings
@@ -93,6 +92,7 @@ project "KadaverCore"
 
 	filter {"system:linux"}
 		links {
+			"asound",
 			"GL",
 			"X11",
 		}
@@ -179,7 +179,6 @@ project "Demo"
 		}
 		links {
 			"pthread",
-			"asound",
 		}
 
 	-- Per-system settings
@@ -191,6 +190,7 @@ project "Demo"
 
 	filter {"system:linux"}
 		links {
+			"asound",
 			"GL",
 			"X11",
 		}
