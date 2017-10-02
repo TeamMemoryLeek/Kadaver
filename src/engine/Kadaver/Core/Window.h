@@ -68,6 +68,8 @@ public:
 	const _XDisplay* getDisplay() const { return display_; }
 	const XVisualInfo* getVisualInfo() const { return visualInfo_; }
 	const XID& getWindow() const { return window_; }
+#elif defined(__APPLE__)
+	void* getWindow() const { return window_; }
 #endif
 
 private:
