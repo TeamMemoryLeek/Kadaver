@@ -46,9 +46,7 @@ Window::Window(int width, int height, const char* title)
 	}
 	
 	// Set title
-	NSString* t = [NSString stringWithUTF8String:title];
-	[window setTitle:t];
-	[t release];
+	setTitle(title);
 	
 	// Associate delegate, activate mouse events, show window
 	[window setAcceptsMouseMovedEvents:TRUE];
@@ -62,6 +60,13 @@ Window::Window(int width, int height, const char* title)
 Window::~Window()
 {
 	destroy();
+}
+
+void Window::setTitle(const std::string& title)
+{
+	NSString* t = [NSString stringWithUTF8String:title.c_str()];
+	[OBJC_WINDOW setTitle:t];
+	[t release];
 }
 
 bool Window::pollEvents()
