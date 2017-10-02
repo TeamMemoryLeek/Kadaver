@@ -44,6 +44,9 @@ Window::Window(int width, int height, const char* title)
 		throw Exception("NSWindow::initWithContentRect failed");
 	}
 	
+	// Create render context
+	renderContext_.initFromWindow(this);
+	
 	// Set title
 	setTitle(title);
 	
