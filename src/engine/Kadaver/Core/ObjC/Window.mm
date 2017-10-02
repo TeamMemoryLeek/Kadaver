@@ -7,6 +7,11 @@
 
 KD_NAMESPACE_BEGIN
 
+void(*Window::keyCallback)(int action, int key) = nullptr;
+void(*Window::mouseButtonCallback)(int action, int button) = nullptr;
+void(*Window::mouseMoveCallback)(int x, int y) = nullptr;
+void(*Window::mouseWheelCallback)(int delta) = nullptr;
+
 Window::Window(int width, int height, const char* title)
 	: window_(nullptr)
 {
