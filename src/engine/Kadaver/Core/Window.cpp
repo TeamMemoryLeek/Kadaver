@@ -153,23 +153,27 @@ Window::Window(int width, int height, const char* title)
 	
 #elif defined(__linux__)
 	
+	static int attributes[] = {GLX_RGBA, GLX_DEPTH_SIZE, 24, GLX_DOUBLEBUFFER, None};
+	
 	XSetWindowAttributes windowAttributes;
 	XID rootWindow;
-	Visual* visual;
-	int depth;
 
 	// Open display
 	display_ = XOpenDisplay(nullptr);
 	rootWindow = DefaultRootWindow(display_);
-	visual = XDefaultVisual(display_, 0);
-	depth = XDefaultDepth(display_, 0);
-
+	
+	// Choose visual
+	visualInfo_ = glXChooseVisual(display_, 0, attributes);
+	
 	// Window attributes
-	windowAttributes.colormap = XCreateColormap(display_, rootWindow, visual, AllocNone);
+	windowAttributes.colormap = XCreateColormap(display_, rootWindow, visualInfo_->visual, AllocNone);
 	windowAttributes.event_mask = ExposureMask | KeyPressMask;
 
 	// Create window
-   	window_ = XCreateWindow(display_, rootWindow, 0, 0, width, height, 0, depth, InputOutput, visual, CWColormap | CWEventMask, &windowAttributes);
+   	window_ = XCreateWindow(display_, rootWindow, 0, 0, width, height, 0, visualInfo_->depth, InputOutput, visualInfo_->visual, CWColormap | CWEventMask, &windowAttributes);
+	
+	// Create render context
+	renderContext_.initFromWindow(this);
 	
 	// Message interception
 	deleteMessage_ = XInternAtom(display_, "WM_DELETE_WINDOW", False);
