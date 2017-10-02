@@ -7,37 +7,48 @@
 #import <OpenGL/OpenGL.h>
 #import <OpenGL/gl.h>
 
-#define OBJC_OPENGL_CONTEXT reinterpret_cast<NSOpenGLContext*>(openGlContext_)
+#define OBJC_OPENGL_VIEW reinterpret_cast<NSOpenGLView*>(openGlView_)
 
 
 KD_NAMESPACE_BEGIN
 
 RenderContext::RenderContext()
-	: openGlContext_(nullptr)
+	: openGlView_(nullptr)
 {
 }
 
 RenderContext::~RenderContext()
 {
-	
+	destroy();
 }
 
 void RenderContext::initFromWindow(const Window* cppWindow)
 {
 	NSWindow* window = reinterpret_cast<NSWindow*>(cppWindow->getWindow());
-	NSView* view = [window contentView];
+	NSOpenGLView* view = [NSOpenGLView alloc];
 	NSOpenGLPixelFormat* pixelFormat = [NSOpenGLPixelFormat alloc];
-	NSOpenGLContext* openGlContext = [NSOpenGLContext alloc];
 	
 	NSOpenGLPixelFormatAttribute attributes[] =	{
 		NSOpenGLPFADoubleBuffer,
 		0
 	};
 	
+	NSRect frame = NSMakeRect(0, 0, cppWindow->getWidth(),
+		cppWindow->getHeight());
+	
+	// Init pixel format
 	[pixelFormat initWithAttributes:attributes];
-	[openGlContext initWithFormat:pixelFormat shareContext:nil];
-	[openGlContext setView:view];
-	[openGlContext makeCurrentContext];
+	
+	// Create OpenGL view
+	if (![view initWithFrame:frame pixelFormat:pixelFormat])
+	{
+		throw Exception("NSOpenGLView::initWithFrame failed");
+	}
+	[view prepareOpenGL];
+	[[window contentView] addSubview:view];
+	
+	// Make context current
+	[[view openGLContext] makeCurrentContext];
 	
 	// Get OpenGL version
 	const GLubyte* glVersion = glGetString(GL_VERSION);
@@ -55,18 +66,17 @@ void RenderContext::initFromWindow(const Window* cppWindow)
 	glViewport(0, 0, cppWindow->getWidth(), cppWindow->getHeight());
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	
-	openGlContext_ = openGlContext;
+	openGlView_ = view;
 }
 
 void RenderContext::destroy()
 {
-	[OBJC_OPENGL_CONTEXT dealloc];
+	[OBJC_OPENGL_VIEW dealloc];
 }
 
 void RenderContext::clear()
 {
-	[OBJC_OPENGL_CONTEXT update];
-	[OBJC_OPENGL_CONTEXT flushBuffer];
+	[[OBJC_OPENGL_VIEW openGLContext] flushBuffer];
 }
 
 KD_NAMESPACE_END
