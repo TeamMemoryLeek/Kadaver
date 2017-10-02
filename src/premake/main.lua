@@ -104,6 +104,7 @@ project "KadaverCore"
 		}
 		links {
 			"Cocoa.framework",
+			"OpenGL.framework",
 		}
 
 	filter {"system:not macosx"}
@@ -193,6 +194,11 @@ project "Demo"
 			"asound",
 			"GL",
 			"X11",
+		}
+
+	filter {"system:macosx"}
+		links {
+			"OpenGL.framework",
 		}
 
 	-- Per-configuration settings
