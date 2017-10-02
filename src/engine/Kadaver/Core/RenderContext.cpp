@@ -11,7 +11,9 @@
 KD_NAMESPACE_BEGIN
 
 RenderContext::RenderContext()
+#if defined(_WIN32)
 	: hglrc_(nullptr)
+#endif
 {
 }
 
