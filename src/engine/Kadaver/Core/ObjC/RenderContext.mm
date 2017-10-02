@@ -31,10 +31,6 @@ void RenderContext::initFromWindow(const Window* cppWindow)
 	
 	NSOpenGLPixelFormatAttribute attributes[] =	{
 		NSOpenGLPFADoubleBuffer,
-		NSOpenGLPFAColorSize, 24,
-		NSOpenGLPFAAlphaSize, 8,
-		NSOpenGLPFADepthSize, 24,
-		NSOpenGLPFAAccelerated,
 		0
 	};
 	
