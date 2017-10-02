@@ -50,6 +50,7 @@ Window::Window(int width, int height, const char* title)
 	// Associate delegate, activate mouse events, show window
 	[window setAcceptsMouseMovedEvents:TRUE];
 	[window setIsVisible:TRUE];
+	[window setBackgroundColor:NSColor.blackColor];
 	
 	[window makeKeyAndOrderFront:app]; // Needed?
 	
