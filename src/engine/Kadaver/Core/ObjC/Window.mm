@@ -14,7 +14,9 @@ void(*Window::mouseMoveCallback)(int x, int y) = nullptr;
 void(*Window::mouseWheelCallback)(int delta) = nullptr;
 
 Window::Window(int width, int height, const char* title)
-	: window_(nullptr)
+	: width_(width)
+	, height_(height)
+	, window_(nullptr)
 {
 	const NSWindowStyleMask styleMask =
 		NSWindowStyleMaskResizable | NSWindowStyleMaskTitled |
