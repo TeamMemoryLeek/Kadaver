@@ -7,6 +7,8 @@
 
 #if defined(_WIN32)
 #include <gl/GL.h>
+#elif defined(__linux__)
+#include <GL/gl.h>
 #endif
 
 #include <iostream>
@@ -52,13 +54,11 @@ int main(int argc, char** argv)
 
 			window.swapBuffers();
 
-#if defined(_WIN32)
 			glBegin(GL_TRIANGLES);
 			glVertex2f(-0.5f, -0.5f);
 			glVertex2f(0.0f, 0.5f);
 			glVertex2f(0.5f, -0.5f);
 			glEnd();
-#endif
 
 			engine.update();
 		}
