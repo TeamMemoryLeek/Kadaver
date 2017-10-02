@@ -64,6 +64,10 @@ public:
 #if defined(_WIN32)
 	const HWND& getHWND() const { return hwnd_; }
 	const HDC& getHDC() const { return hdc_; }
+#elif defined(__linux__)
+	const _XDisplay* getDisplay() const { return display_; }
+	const XVisualInfo* getVisualInfo() const { return visualInfo_; }
+	const XID& getWindow() const { return window_; }
 #endif
 
 private:
