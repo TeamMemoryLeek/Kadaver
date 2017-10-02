@@ -75,6 +75,7 @@ private:
 	HDC hdc_;
 #elif defined(__linux__)
 	_XDisplay* display_;
+	XVisualInfo* visualInfo_;
 	XID window_;
 	Atom deleteMessage_;
 #elif defined(__APPLE__)
