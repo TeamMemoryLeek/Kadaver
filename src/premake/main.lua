@@ -91,6 +91,11 @@ project "KadaverCore"
 			"opengl32",
 		}
 
+	filter {"system:linux"}
+		links {
+			"GL",
+		}
+
 	filter {"system:macosx"}
 		files {
 			"../engine/Kadaver/Core/**.m",
@@ -185,6 +190,7 @@ project "Demo"
 
 	filter {"system:linux"}
 		links {
+			"GL",
 			"X11",
 		}
 
