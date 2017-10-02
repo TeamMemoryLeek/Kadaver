@@ -9,6 +9,8 @@
 #include <gl/GL.h>
 #elif defined(__linux__)
 #include <GL/gl.h>
+#elif defined(__APPLE__)
+#include <OpenGL/gl.h>
 #endif
 
 #include <iostream>
