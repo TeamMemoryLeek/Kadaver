@@ -30,7 +30,7 @@ private:
 #elif defined(__linux__)
 	GLXContext glxContext_;
 #elif defined(__APPLE__)
-	void* openGlContext_;
+	void* openGlView_;
 #endif
 };
 
