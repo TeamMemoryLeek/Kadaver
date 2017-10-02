@@ -260,6 +260,8 @@ void Window::swapBuffers()
 {
 #if defined(_WIN32)
 	SwapBuffers(hdc_);
+#elif defined(__linux__)
+	glXSwapBuffers(display_, window_);
 #endif
 
 	renderContext_.clear();
