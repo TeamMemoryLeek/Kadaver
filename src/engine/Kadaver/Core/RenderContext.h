@@ -27,6 +27,8 @@ public:
 private:
 #if defined(_WIN32)
 	HGLRC hglrc_;
+#elif defined(__linux__)
+	GLXContext glxContext_;
 #endif
 };
 

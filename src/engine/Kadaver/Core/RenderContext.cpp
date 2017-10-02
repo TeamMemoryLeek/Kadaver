@@ -13,6 +13,8 @@ KD_NAMESPACE_BEGIN
 RenderContext::RenderContext()
 #if defined(_WIN32)
 	: hglrc_(nullptr)
+#elif defined(__linux__)
+	: glxContext_(nullptr)
 #endif
 {
 }
@@ -64,8 +66,25 @@ void RenderContext::initFromWindow(const Window* window)
 	{
 		throw Exception("wglMakeCurrent failed");
 	}
+#elif defined(__linux__)
+	_XDisplay* display = const_cast<_XDisplay*>(window->getDisplay());
+	XVisualInfo* visualInfo = const_cast<XVisualInfo*>(window->getVisualInfo());
+
+	// Create the render context
+	glxContext_ = glXCreateContext(display, visualInfo, nullptr, true);
+	if (!glxContext_)
+	{
+		throw Exception("glXCreateContext failed");
+	}
+	
+	// Make context current
+	if (!glXMakeCurrent(display, window->getWindow(), glxContext_))
+	{
+		throw Exception("glXMakeCurrent failed");
+	}
 #endif
 
+	// Get OpenGL version
 	const GLubyte* glVersion = glGetString(GL_VERSION);
 	if (!glVersion)
 	{
