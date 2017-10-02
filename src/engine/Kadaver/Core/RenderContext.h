@@ -29,6 +29,8 @@ private:
 	HGLRC hglrc_;
 #elif defined(__linux__)
 	GLXContext glxContext_;
+#elif defined(__APPLE__)
+	void* openGlContext_;
 #endif
 };
 

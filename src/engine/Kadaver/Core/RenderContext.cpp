@@ -1,3 +1,5 @@
+#ifndef __APPLE__
+
 #include "RenderContext.h"
 
 #include "Engine.h"
@@ -114,3 +116,5 @@ void RenderContext::clear()
 }
 
 KD_NAMESPACE_END
+
+#endif
