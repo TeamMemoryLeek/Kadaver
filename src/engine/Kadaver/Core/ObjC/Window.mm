@@ -41,8 +41,7 @@ Window::Window(int width, int height, const char* title)
 	if (![window initWithContentRect:frame styleMask:styleMask
 		backing:NSBackingStoreBuffered defer:NO])
 	{
-//		throw std::exception("NSWindow::initWithContentRect failed");
-		throw std::exception();
+		throw Exception("NSWindow::initWithContentRect failed");
 	}
 	
 	// Set title
