@@ -1,6 +1,7 @@
 #include "Window.h"
 
 #import <Cocoa/Cocoa.h>
+#import <OpenGL/gl.h>
 
 #define OBJC_WINDOW reinterpret_cast<NSWindow*>(window_)
 
@@ -95,6 +96,13 @@ bool Window::pollEvents()
 	}
 	
 	return true;
+}
+
+void Window::swapBuffers()
+{
+	[OBJC_WINDOW flushWindow];
+	
+	renderContext_.clear();
 }
 
 void Window::destroy()
