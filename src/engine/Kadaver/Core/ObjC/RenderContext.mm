@@ -47,7 +47,9 @@ void RenderContext::initFromWindow(const Window* cppWindow)
 	}
 	
 	// Print OpenGL version
-	KD_LOGGER.log(reinterpret_cast<const char*>(glVersion), LOG_RENDERING);
+	std::string s = std::string("OpenGL v.") +
+	reinterpret_cast<const char*>(glVersion);
+	KD_LOGGER.log(s, LOG_RENDERING);
 	
 	glEnable(GL_DEPTH_TEST);
 	glViewport(0, 0, cppWindow->getWidth(), cppWindow->getHeight());
